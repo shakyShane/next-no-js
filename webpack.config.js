@@ -45,6 +45,7 @@ module.exports = () => {
         devtool: 'source-map',
         mode,
         resolve: {
+            extensions: [".ts", ".tsx", ".js", ".json"],
             alias: alias
         },
         plugins: [
@@ -67,6 +68,7 @@ module.exports = () => {
             devtool: 'source-map',
             output: output,
             resolve: {
+                extensions: [".ts", ".tsx", ".js", ".json"],
                 alias: alias
             },
             plugins: [

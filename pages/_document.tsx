@@ -13,7 +13,9 @@ class MyDocument extends Document {
                 <body>
                 <Main />
                 <NextScript />
-                <script src={"/_next/static/chunks/modfed/bootstrap.js"} />
+                {process.env.NODE_ENV === "production" && this.props.html.includes('data-modfed-id') && (
+                    <script src={"/_next/static/chunks/modfed/bootstrap.js"} />
+                )}
                 </body>
             </Html>
         )

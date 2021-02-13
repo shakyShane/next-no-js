@@ -8,7 +8,11 @@ export function Counter() {
         }, 1000)
     }, []);
     return (
-        <span>count: {time}</span>
+        <div>
+            <div style={{textAlign: 'center'}}>
+                <span>setInterval is not good for timers like this: <strong>{time}</strong></span>
+            </div>
+        </div>
     )
 }
 
