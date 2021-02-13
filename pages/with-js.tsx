@@ -12,7 +12,9 @@ export default function WithJs() {
         <div className={styles.main}>
             <h1>On-demand JavaScript runtime + Preact</h1>
             <h2 className={styles.description}>The initial HTML for this page rendered at build time - so it works without JavaScript (really, try it)</h2>
-            <p className={styles.description}>But, when JavaScript is available it will be 'hydrated' with a minimal JS bundle</p>
+            <p className={styles.description}>But, when a page like this contains a Component marked as JS-ENABLED, the 2kb runtime loads, and then loads any micro-bundles required for the component
+            (in this example, that's Preact/compat)</p>
+            <p className={styles.description}>Thanks to Module Federation, if multiple components on the same page share dependencies (eg: Preact) they will 'share' them intelligently</p>
             <Loader modfedId={"Counter"}>
                 <DynamicComponent />
             </Loader>
