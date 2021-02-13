@@ -10,10 +10,9 @@ const DynamicComponent = dynamic(() => {
 export default function WithJs() {
     return <div className={styles.container}>
         <div className={styles.main}>
-            <h1 className={styles.title}>This page contains regular markup + a React Component (Timer).</h1>
-            <h2 className={styles.description}>It's initial HTML was rendered at build time - it works without JS (really, try it)</h2>
-            <p className={styles.description}>But, when JS is available it will be 'hydrated' with a
-            minimal JS bundle</p>
+            <h1>On-demand JavaScript runtime + Preact</h1>
+            <h2 className={styles.description}>The initial HTML for this page rendered at build time - so it works without JavaScript (really, try it)</h2>
+            <p className={styles.description}>But, when JavaScript is available it will be 'hydrated' with a minimal JS bundle</p>
             <Loader modfedId={"Counter"}>
                 <DynamicComponent />
             </Loader>
