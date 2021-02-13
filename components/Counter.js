@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 
 export function Counter() {
     const [time, setTime] = useState(0);
@@ -7,7 +7,9 @@ export function Counter() {
             setTime(t => t+= 1);
         }, 1000)
     }, []);
-    return <span>count: {time}</span>
+    return (
+        <span>count: {time}</span>
+    )
 }
 
 export default Counter;

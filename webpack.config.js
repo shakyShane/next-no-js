@@ -2,7 +2,20 @@ const webpack = require("webpack");
 const {join} = require("path");
 const {ESBuildPlugin} = require("esbuild-loader");
 
-const output = join(__dirname, ".next/static/chunks/modfed");
+const outputDir = join(__dirname, ".next/static/chunks/modfed");
+const publicPath = "/_next/static/chunks/modfed/";
+const mode = "production";
+
+const output = {
+    filename: "[name].js",
+    path: outputDir,
+    publicPath: publicPath,
+};
+
+const alias = {
+    "react": "preact/compat",
+    "react-dom": "preact/compat",
+}
 
 const esbuild = {
     rules: [
@@ -25,16 +38,15 @@ module.exports = () => {
     return [{
         name: "modfed-entry",
         entry: {
-            main: "./components/entry.js",
+            bootstrap: "./components/bootstrap",
         },
-        output: {
-            filename: "[name].js",
-            path: output,
-            publicPath: "/",
-        },
+        output: output,
         module: esbuild,
         devtool: 'source-map',
-        mode: 'development',
+        mode,
+        resolve: {
+            alias: alias
+        },
         plugins: [
             new ESBuildPlugin(),
             new webpack.container.ModuleFederationPlugin({
@@ -51,12 +63,11 @@ module.exports = () => {
 
             entry: {},
             module: esbuild,
-            mode: 'development',
+            mode,
             devtool: 'source-map',
-            output: {
-                filename: "[name].js",
-                path: output,
-                publicPath: "/",
+            output: output,
+            resolve: {
+                alias: alias
             },
             plugins: [
                 new ESBuildPlugin(),
@@ -66,7 +77,10 @@ module.exports = () => {
                         ".": './components/Counter',
                     },
                     // list of shared modules from shell
-                    shared: ['react', 'react-dom'],
+                    shared: {
+                        react: { import: false },
+                        "react-dom": { import: false }
+                    },
                 })
             ]
         }]

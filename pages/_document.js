@@ -13,7 +13,7 @@ class MyDocument extends Document {
                 <body>
                 <Main />
                 <NextScript />
-                <script src={"/_next/chunks/modfed/main.js"} />
+                <script src={"/_next/static/chunks/modfed/bootstrap.js"} />
                 </body>
             </Html>
         )
