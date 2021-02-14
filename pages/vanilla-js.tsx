@@ -17,7 +17,7 @@ export default function VanillaJs() {
             </Head>
             <main className={styles.main}>
                 <div>
-                    <h1>Next JS with on-demand Vanilla JS</h1>
+                    <h1>(decentralised modules) Next JS with on-demand Vanilla JS</h1>
                     <h2 className={styles.description}>
                         The initial HTML for this page was rendered at build time with regular React Components
                     </h2>

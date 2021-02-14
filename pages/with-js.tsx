@@ -13,7 +13,7 @@ export default function WithJs() {
         <div className={styles.container}>
             <main className={styles.main}>
                 <div>
-                    <h1>On-demand JavaScript runtime + Preact</h1>
+                    <h1>(decentralised modules) On-demand JavaScript runtime + Preact</h1>
                     <h2 className={styles.description}>
                         The initial HTML for this page was rendered at build time - so it works without JavaScript
                         (really, try it)

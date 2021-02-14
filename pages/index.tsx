@@ -13,7 +13,7 @@ export default function Home() {
             <main className={styles.main}>
                 <div>
                     <h1 className={styles.title}>
-                        Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
+                        (decentralised modules) Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
                     </h1>
                     <h2 className={styles.description}>
                         A static site, with an opt-in 2kb runtime + granular SSR hydration
