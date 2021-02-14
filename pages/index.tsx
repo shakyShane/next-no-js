@@ -32,7 +32,7 @@ export default function Home() {
                             <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
                         </li>
                         <li>
-                            <a href={"https://next-no-js-gh59d3jut.vercel.app/"}>Both examples above with decentralised modules (few extra KB, but easier to scale)</a>
+                            <a href={"https://next-no-js-git-decentralized.shaneosbourne8.vercel.app/"}>Both examples above with decentralised modules (few extra KB, but easier to scale)</a>
                         </li>
                     </ul>
                 </div>
