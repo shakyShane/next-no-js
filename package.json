@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn modfed:build && next build",
+    "build": "next build && yarn modfed:build",
     "modfed:build": "./node_modules/.bin/webpack --json '.next/modfed-manifest.json'",
     "lint:fix": "prettier '**/*.{ts,tsx,js}' --write",
     "start": "next start",

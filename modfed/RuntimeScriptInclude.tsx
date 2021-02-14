@@ -4,6 +4,13 @@ import { readFileSync } from "fs";
 let manifest;
 let bootstrap;
 
+try {
+    const BUILD_ID = readFileSync(join(__dirname, "..", "..", "BUILD_ID"), "utf8");
+    console.log('build_id->',BUILD_ID);
+} catch (e) {
+    console.log('could not load build_id->', e);
+}
+
 if (process.env.NODE_ENV === "production") {
     try {
         const str = readFileSync(join(__dirname, "..", "..", "modfed-manifest.json"), "utf8");
