@@ -24,10 +24,7 @@ export const deferred = (args) => {
 
     if (typeof timeout === "number") {
         const id = args.id || "anonymous deferred";
-        timeoutId = setTimeout(
-            () => reject({ reason: `timeout (${timeout}) reached on "${id}"` }),
-            timeout
-        );
+        timeoutId = setTimeout(() => reject({ reason: `timeout (${timeout}) reached on "${id}"` }), timeout);
     }
 
     return promise;

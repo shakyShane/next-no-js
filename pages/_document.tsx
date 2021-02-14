@@ -1,9 +1,10 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { RuntimeScriptInclude } from "../modfed/RuntimeScriptInclude";
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
-        const initialProps = await Document.getInitialProps(ctx)
-        return { ...initialProps }
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
     }
 
     render() {
@@ -11,15 +12,13 @@ class MyDocument extends Document {
             <Html>
                 <Head />
                 <body>
-                <Main />
-                <NextScript />
-                {process.env.NODE_ENV === "production" && this.props.html.includes('data-modfed-id') && (
-                    <script src={"/_next/static/chunks/modfed/bootstrap.js"} />
-                )}
+                    <Main />
+                    <NextScript />
+                    <RuntimeScriptInclude html={this.props.html} />
                 </body>
             </Html>
-        )
+        );
     }
 }
 
-export default MyDocument
+export default MyDocument;
