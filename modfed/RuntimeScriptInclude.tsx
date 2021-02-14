@@ -6,8 +6,8 @@ let bootstrap;
 
 try {
     const BUILD_ID = readFileSync(join(__dirname, "..", "..", "BUILD_ID"), "utf8");
-    console.log('build_id->',BUILD_ID);
 } catch (e) {
+    console.log('build_id->',process.env);
     console.log('could not load build_id->', e);
 }
 
