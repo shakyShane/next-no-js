@@ -35,7 +35,7 @@ export default function VanillaJs() {
                     </p>
                     <p>
                         Possibly the best part though, the component used for this 'counter' is the exact same one used
-                        in the <Link href={"/no-js"}>Preact example</Link>.
+                        in the <Link href={"/with-js"}>Preact example</Link>.
                     </p>
                 </div>
                 <div>
