@@ -31,6 +31,9 @@ export default function Home() {
                         <li>
                             <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
                         </li>
+                        <li>
+                            <a href={"https://next-no-js-gh59d3jut.vercel.app/"}>Both examples above with decentralised modules (few extra KB, but easier to scale)</a>
+                        </li>
                     </ul>
                 </div>
                 <aside className={styles.updates}>
@@ -38,6 +41,7 @@ export default function Home() {
                     <ul>
                         <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
                         <li>Sun Feb 14th: added vanilla-js example</li>
+                        <li>Sun Feb 14th: added decentralised versions</li>
                     </ul>
                 </aside>
             </main>
