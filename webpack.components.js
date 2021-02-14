@@ -38,30 +38,29 @@ const esbuild = {
 module.exports = () => {
     return [
         {
-            name: "modfed-entry",
-            entry: {
-                bootstrap: "./modfed/bootstrap",
-            },
-            output: output,
+            entry: {},
             module: esbuild,
-            devtool: "source-map",
             mode,
+            devtool: "source-map",
+            output: output,
             resolve: {
                 extensions: [".ts", ".tsx", ".js", ".json"],
                 alias: alias,
             },
-            stats: {},
             plugins: [
                 new ESBuildPlugin(),
                 new webpack.container.ModuleFederationPlugin({
-                    name: "modfed-entry",
-                    // List of remotes with URLs
-                    // remotes: remotes,
-
+                    name: "counter",
+                    exposes: {
+                        ".": "./components/Counter",
+                    },
                     // list of shared modules from shell
-                    shared: ["react", "react-dom"],
+                    shared: {
+                        react: { import: false },
+                        "react-dom": { import: false },
+                    },
                 }),
             ],
-        }
+        },
     ];
 };

@@ -4,16 +4,9 @@ import { readFileSync } from "fs";
 let manifest;
 let bootstrap;
 
-try {
-    const BUILD_ID = readFileSync(join(__dirname, "..", "..", "BUILD_ID"), "utf8");
-} catch (e) {
-    console.log('build_id->',process.env);
-    console.log('could not load build_id->', e);
-}
-
 if (process.env.NODE_ENV === "production") {
     try {
-        const str = readFileSync(join(__dirname, "..", "..", "modfed-manifest.json"), "utf8");
+        const str = readFileSync(join(process.cwd(), ".next", "modfed-entry.json"), "utf8");
         manifest = JSON.parse(str);
         const entry = manifest.children.find((child) => child.name === "modfed-entry");
         bootstrap = entry.assetsByChunkName.bootstrap[0];
