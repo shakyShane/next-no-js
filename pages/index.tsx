@@ -37,6 +37,7 @@ export default function Home() {
                     <h3>Updates:</h3>
                     <ul>
                         <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
+                        <li>Sun Feb 14th: added vanilla-js example</li>
                     </ul>
                 </aside>
             </main>
