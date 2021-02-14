@@ -9,6 +9,7 @@
     "start": "next start",
     "export": "next export"
   },
+  "author": "shane osboune",
   "dependencies": {
     "@types/react": "^17.0.2",
     "esbuild-loader": "^2.9.1",
