@@ -42,7 +42,7 @@ export default function VanillaJs() {
                     <h3>The timer below was server-side rendered</h3>
                     <p>Once the page is ready, a tiny bundle loads and executes, re-using the DOM</p>
                     <div style={{ border: "5px solid purple", padding: "1rem" }}>
-                        <Loader modfedId={"Counter"} modfedType={"vanilla"}>
+                        <Loader modfedId={"counterVanilla"} modfedType={"vanilla"}>
                             <DynamicComponent />
                         </Loader>
                     </div>

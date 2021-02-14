@@ -51,8 +51,21 @@ module.exports = () => {
                 new ESBuildPlugin(),
                 new webpack.container.ModuleFederationPlugin({
                     name: "counter",
+                    filename: 'modfed-[name].[contenthash].js',
                     exposes: {
                         ".": "./components/Counter",
+                    },
+                    // list of shared modules from shell
+                    shared: {
+                        react: { import: false, },
+                        "react-dom": { import: false },
+                    },
+                }),
+                new webpack.container.ModuleFederationPlugin({
+                    name: "counterVanilla",
+                    filename: 'modfed-[name].[contenthash].js',
+                    exposes: {
+                        ".": "./components/counter-runtime",
                     },
                     // list of shared modules from shell
                     shared: {

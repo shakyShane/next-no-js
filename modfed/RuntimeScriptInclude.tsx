@@ -3,6 +3,7 @@ import { readFileSync } from "fs";
 
 let manifest;
 let bootstrap;
+let components;
 
 if (process.env.NODE_ENV === "production") {
     try {
@@ -15,6 +16,16 @@ if (process.env.NODE_ENV === "production") {
         }
     } catch (e) {
         console.error("could not read modfed manifest");
+    }
+}
+
+if (process.env.NODE_ENV === "production") {
+    try {
+        const str = readFileSync(join(process.cwd(), ".next", "modfed-components.json"), "utf8");
+        const manifest = JSON.parse(str);
+        components = manifest.namedChunkGroups;
+    } catch (e) {
+        console.error("could not load component manifest");
     }
 }
 
@@ -34,6 +45,11 @@ export function RuntimeScriptInclude(props: { html: string }) {
                     type={"text/json"}
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
                     id="bootstrap"
+                />
+                <script
+                    type={"text/json"}
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(components).replace(/</g, "\\u003c") }}
+                    id="components"
                 />
                 <script src={`/_next/static/chunks/modfed/${bootstrap}`} />
             </>
