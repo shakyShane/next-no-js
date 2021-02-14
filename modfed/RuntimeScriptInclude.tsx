@@ -20,7 +20,24 @@ if (process.env.NODE_ENV === "production") {
 
 export function RuntimeScriptInclude(props: { html: string }) {
     if (process.env.NODE_ENV === "production" && bootstrap && props.html.includes("data-modfed-id")) {
-        return <script src={`/_next/static/chunks/modfed/${bootstrap}`} />;
+        const runtimes = [];
+        if (props.html.includes(`data-modfed-type="vanilla"`)) {
+            runtimes.push("vanilla");
+        }
+        if (props.html.includes(`data-modfed-type="preact"`)) {
+            runtimes.push("preact");
+        }
+        const json = { runtimes };
+        return (
+            <>
+                <script
+                    type={"text/json"}
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
+                    id="bootstrap"
+                />
+                <script src={`/_next/static/chunks/modfed/${bootstrap}`} />
+            </>
+        );
     }
 
     return null;

@@ -20,9 +20,18 @@ export default function Home() {
                     </h2>
                     <p className={styles.description}>This page has ZERO JavaScript - as it didn't need any</p>
                     <p className={styles.description}>
-                        But <Link href={"/with-js"}>this page</Link> contains a SSR'd JS component, and that component
-                        alone will be hydrated by Preact
+                        But in the examples below, JS can be loaded on-demand to either hydrate the components, or just
+                        to access the markup.
                     </p>
+                    <h3>Examples:</h3>
+                    <ul>
+                        <li>
+                            <Link href={"/with-js"}>on-demand SSR hydration</Link>
+                        </li>
+                        <li>
+                            <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
+                        </li>
+                    </ul>
                 </div>
                 <aside className={styles.updates}>
                     <h3>Updates:</h3>

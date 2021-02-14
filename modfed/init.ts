@@ -1,10 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-
-const elem = document.querySelector(`[data-modfed-id="Counter"]`);
-
+const elem = document.getElementById("bootstrap");
 if (elem) {
-    import("../components/Counter").then((mod) => {
-        ReactDOM.hydrate(React.createElement(mod.default), elem);
+    const str = elem.textContent;
+    const json = JSON.parse(str);
+    json.runtimes.forEach((rt) => {
+        console.log("starting runtime", rt);
+        if (rt === "preact") {
+            import("./init-preact");
+        }
+        if (rt === "vanilla") {
+            import("./init-vanilla");
+        }
     });
 }
+export {};

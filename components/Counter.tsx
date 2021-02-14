@@ -11,7 +11,7 @@ export function Counter() {
         <div>
             <div style={{ textAlign: "center" }}>
                 <span>
-                    setInterval is not good for timers like this: <strong>{time}</strong>
+                    setInterval is not good for timers like this: <strong data-test-id="time">{time}</strong>
                 </span>
             </div>
         </div>
