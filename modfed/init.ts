@@ -1,15 +1,24 @@
+import { loadFromRemote } from "./remote-loader/load-from-remote";
+
 const elem = document.getElementById("bootstrap");
 if (elem) {
     const str = elem.textContent;
     const json = JSON.parse(str);
-    json.runtimes.forEach((rt) => {
-        console.log("starting runtime", rt);
-        if (rt === "preact") {
-            import("./init-preact");
-        }
-        if (rt === "vanilla") {
-            import("./init-vanilla");
-        }
+    load().then(m => {
+        console.log('got', m);
     });
 }
-export {};
+
+async function load() {
+    const preactLoader = await import("./init-preact");
+
+    const loader = await loadFromRemote({
+        remote: {
+            url: "/_next/static/chunks/modfed/counter.js",
+            name: 'counter'
+        }
+    });
+    const mod = await loader();
+    preactLoader.hydrate(`[data-modfed-id="Counter"]`, mod);
+    // return mod;
+}

@@ -4,11 +4,11 @@ const { ESBuildPlugin } = require("esbuild-loader");
 
 const outputDir = join(__dirname, ".next/static/chunks/modfed");
 const publicPath = "/_next/static/chunks/modfed/";
-const mode = "production";
+const mode = process.env.BUILD_ENV || "production";
 
 const output = {
-    filename: "[name].[contenthash].js",
-    chunkFilename: "[name].[contenthash].js",
+    filename: "[name].js",
+    chunkFilename: "[name].js",
     path: outputDir,
     publicPath: publicPath,
 };
@@ -56,7 +56,7 @@ module.exports = () => {
                     },
                     // list of shared modules from shell
                     shared: {
-                        react: { import: false },
+                        react: { import: false, },
                         "react-dom": { import: false },
                     },
                 }),
