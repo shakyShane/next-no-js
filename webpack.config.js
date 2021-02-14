@@ -62,6 +62,6 @@ module.exports = () => {
                     shared: ["react", "react-dom"],
                 }),
             ],
-        }
+        },
     ];
 };

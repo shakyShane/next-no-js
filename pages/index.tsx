@@ -11,22 +11,30 @@ export default function Home() {
             </Head>
 
             <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
-                </h1>
-                <h2 className={styles.description}>
-                    A static site, with an opt-in 2kb runtime + granular SSR hydration
-                </h2>
-                <p className={styles.description}>This page has ZERO JavaScript - as it didn't need any</p>
-                <p className={styles.description}>
-                    But <Link href={"/with-js"}>this page</Link> contains a SSR'd JS component, and that component alone
-                    will be hydrated by Preact
-                </p>
+                <div>
+                    <h1 className={styles.title}>
+                        Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
+                    </h1>
+                    <h2 className={styles.description}>
+                        A static site, with an opt-in 2kb runtime + granular SSR hydration
+                    </h2>
+                    <p className={styles.description}>This page has ZERO JavaScript - as it didn't need any</p>
+                    <p className={styles.description}>
+                        But <Link href={"/with-js"}>this page</Link> contains a SSR'd JS component, and that component
+                        alone will be hydrated by Preact
+                    </p>
+                </div>
+                <aside className={styles.updates}>
+                    <h3>Updates:</h3>
+                    <ul>
+                        <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
+                    </ul>
+                </aside>
             </main>
 
             <footer className={styles.footer}>
                 <a href="https://twitter.com/shaneosbourne" target="_blank" rel="noopener noreferrer">
-                    Powered by crazy ideas... and module federation.
+                    An experiment by @shaneOsbourne
                 </a>
             </footer>
         </div>

@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === "production") {
         const entry = manifest.children.find((child) => child.name === "modfed-entry");
         bootstrap = entry.assetsByChunkName.bootstrap[0];
         if (!bootstrap) {
-            console.error("could not load bootstrap")
+            console.error("could not load bootstrap");
         }
     } catch (e) {
         console.error("could not read modfed manifest");
