@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+const items = document.querySelectorAll(`[data-modfed-type="preact"]`);
 
-const elem = document.querySelector(`[data-modfed-id="Counter"]`);
+items.forEach((item: HTMLDivElement) => {
+    const { modfedId, modfedComponent } = item.dataset;
+    const data = document.querySelector(`[data-modfed-data="${modfedId}"]`);
+    const parsed = JSON.parse(data?.textContent ?? "null");
 
-if (elem) {
-    import("../components/Counter").then((mod) => {
-        ReactDOM.hydrate(React.createElement(mod.default), elem);
+    import(`../components/${modfedComponent}`).then((mod) => {
+        ReactDOM.hydrate(React.createElement(mod.default, parsed), item);
     });
-}
+});

@@ -3,17 +3,24 @@ import dynamic from "next/dynamic";
 import { Loader } from "../modfed/Loader";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { GetStaticProps } from "next";
 
 const DynamicComponent = dynamic(() => {
-    return import(/* webpackChunkName: "modfed-counter" */ "../components/Counter");
+    return import(/* webpackChunkName: "modfed-counter" */ "../components/Gallery");
 });
 
-export default function WithJs() {
+type Props = {
+    data: {
+        images: string[];
+    };
+};
+
+export default function WithData(props: Props) {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
                 <div>
-                    <h1>On-demand JavaScript runtime + Preact</h1>
+                    <h1>On-demand hydration with Data</h1>
                     <h2 className={styles.description}>
                         The initial HTML for this page was rendered at build time - so it works without JavaScript
                         (really, try it)
@@ -31,9 +38,7 @@ export default function WithJs() {
                     <h3>The timer below was server-side rendered</h3>
                     <p>Once the page is ready, a tiny bundle loads and hydrates the markup</p>
                     <div style={{ border: "5px solid purple", padding: "1rem" }}>
-                        <Loader modfedId={"Counter"} modfedType={"preact"}>
-                            <DynamicComponent />
-                        </Loader>
+                        <DynamicComponent {...props.data} />
                     </div>
                     <br />
                     <Link href={"/"}>Back home</Link>
@@ -44,5 +49,19 @@ export default function WithJs() {
 }
 
 export const config = {
-    unstable_runtimeJS: false,
+    unstable_runtimeJS: true,
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    return {
+        props: {
+            data: {
+                images: [
+                    "https://source.unsplash.com/ZCHj_2lJP00/600x600",
+                    "https://source.unsplash.com/2JcixB1Ky3I/600x600",
+                    "https://source.unsplash.com/hxn2HjZHyQE/600x600",
+                ],
+            },
+        },
+    };
 };

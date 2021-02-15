@@ -29,10 +29,15 @@ export default function Home() {
                             <Link href={"/with-js"}>on-demand SSR hydration</Link>
                         </li>
                         <li>
+                            <Link href={"/with-data"}>on-demand SSR hydration with Data</Link>
+                        </li>
+                        <li>
                             <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
                         </li>
                         <li>
-                            <a href={"https://next-no-js-git-decentralized.shaneosbourne8.vercel.app/"}>Both examples above with decentralised modules (few extra KB, but easier to scale)</a>
+                            <a href={"https://next-no-js-git-decentralized.shaneosbourne8.vercel.app/"}>
+                                Both examples above with decentralised modules (few extra KB, but easier to scale)
+                            </a>
                         </li>
                     </ul>
                 </div>

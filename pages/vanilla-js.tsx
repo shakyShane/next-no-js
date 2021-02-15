@@ -6,7 +6,7 @@ import Link from "next/link";
 import Head from "next/head";
 
 const DynamicComponent = dynamic(() => {
-    return import(/* webpackChunkName: "counter" */ "../components/Counter");
+    return import(/* webpackChunkName: "modfed-counter" */ "../components/Counter");
 });
 
 export default function VanillaJs() {
