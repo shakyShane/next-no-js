@@ -3,7 +3,6 @@ if (elem) {
     const str = elem.textContent;
     const json = JSON.parse(str);
     json.runtimes.forEach((rt) => {
-        console.log("starting runtime", rt);
         if (rt === "preact") {
             import("./init-preact");
         }

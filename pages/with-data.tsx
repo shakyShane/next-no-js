@@ -4,6 +4,7 @@ import { Loader } from "../modfed/Loader";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 import { GetStaticProps } from "next";
+import Head from "next/head";
 
 const DynamicComponent = dynamic(() => {
     return import(/* webpackChunkName: "modfed-counter" */ "../components/Gallery");
@@ -18,26 +19,32 @@ type Props = {
 export default function WithData(props: Props) {
     return (
         <div className={styles.container}>
+            <Head>
+                <title>on-demand, component-level hydration</title>
+            </Head>
             <main className={styles.main}>
                 <div>
-                    <h1>On-demand hydration with Data</h1>
+                    <h1>on-demand, component-level hydration</h1>
                     <h2 className={styles.description}>
-                        The initial HTML for this page was rendered at build time - so it works without JavaScript
-                        (really, try it)
+                        This page uses the regular `getStaticProps` from NextJS to get some image data.
                     </h2>
                     <p className={styles.description}>
-                        But, when a page like this contains a Component marked as JS-ENABLED, the 2kb runtime loads, and
-                        then loads any micro-bundles required for the component (in this example, that's Preact/compat)
+                        You then write the Gallery feature as a regular idiomatic React component - using click
+                        handlers, accessing data, adding CSS etc
                     </p>
                     <p className={styles.description}>
-                        Thanks to Module Federation, if multiple components on the same page share dependencies (eg:
-                        Preact) they will 'share' them intelligently
+                        But then when the page loads in the browser, the runtime will notice that there's a component to
+                        hydrate and it will load in Preact along with <strong>just enough</strong> data to re-hydrate
+                        this component alone - NOT the entire page. Seriously, go and view:source to see what I mean :)
+                    </p>
+                    <p>
+                        JS saving on this page: <strong>63kb</strong>
                     </p>
                 </div>
                 <div>
-                    <h3>The timer below was server-side rendered</h3>
-                    <p>Once the page is ready, a tiny bundle loads and hydrates the markup</p>
-                    <div style={{ border: "5px solid purple", padding: "1rem" }}>
+                    <h3>The gallery below was server-side rendered</h3>
+                    <p>Reload the page without JS to try it out</p>
+                    <div style={{ border: "1px dotted purple", padding: "10px" }}>
                         <Loader
                             modfedId={"gallery"}
                             modfedType={"preact"}

@@ -12,6 +12,10 @@ export function Gallery(props: Props) {
                 {`
                     .list {
                         list-style: none;
+                        margin: 0;
+                        padding-left: 0;
+                        text-align: center;
+                        padding-top: 10px;
                     }
                     .item {
                         display: inline-block;
@@ -21,25 +25,42 @@ export function Gallery(props: Props) {
                         outline: 1px solid black;
                     }
                     .img {
-                        max-width: 60px;
+                        width: 60px;
+                        height: 60px;
                         display: block;
                     }
                     .img:hover {
                         cursor: pointer;
+                        outline: 1px solid red;
+                    }
+                    .figure {
+                        margin: 0;
+                        display: block;
+                        text-align: center;
                     }
                     .main {
-                        max-width: 100%;
+                        width: 250px;
+                        height: 250px;
                     }
                 `}
             </style>
-            <figure>
+            <div className="figure">
                 <img src={props.images[index]} alt="" className="main" />
-            </figure>
+            </div>
             <ul className="list">
                 {props.images.map((img, i) => {
                     return (
                         <li key={img} className="item" data-active={String(i === index)}>
-                            <img src={img} alt="" className="img" onClick={() => setIndex(i)} />
+                            <a
+                                href={img}
+                                className="link"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setIndex(i);
+                                }}
+                            >
+                                <img src={img} alt="" className="img" width={60} height={60} />
+                            </a>
                         </li>
                     );
                 })}

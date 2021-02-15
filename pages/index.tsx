@@ -29,7 +29,7 @@ export default function Home() {
                             <Link href={"/with-js"}>on-demand SSR hydration</Link>
                         </li>
                         <li>
-                            <Link href={"/with-data"}>on-demand SSR hydration with Data</Link>
+                            <Link href={"/with-data"}>on-demand SSR hydration with `getStaticProps`</Link>
                         </li>
                         <li>
                             <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
@@ -47,6 +47,7 @@ export default function Home() {
                         <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
                         <li>Sun Feb 14th: added vanilla-js example</li>
                         <li>Sun Feb 14th: added decentralised versions</li>
+                        <li>Mon Feb 15th: added a component-level hydration example with data</li>
                     </ul>
                 </aside>
             </main>
