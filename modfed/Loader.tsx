@@ -1,11 +1,17 @@
 import { PropsWithChildren } from "react";
 
-type LoaderProps = {
-    modfedId: string;
-    modfedComponent: string;
-    modfedType: "vanilla" | "preact";
-    modfedData?: any;
-};
+type LoaderProps =
+    | {
+          modfedType: "vanilla";
+          modfedId: string;
+          modfedData?: any;
+      }
+    | {
+          modfedType: "preact";
+          modfedId: string;
+          modfedComponent: string;
+          modfedData?: any;
+      };
 
 export function Loader(props: PropsWithChildren<LoaderProps>) {
     return (
@@ -18,7 +24,7 @@ export function Loader(props: PropsWithChildren<LoaderProps>) {
             <div
                 data-modfed-id={props.modfedId}
                 data-modfed-type={props.modfedType}
-                data-modfed-component={props.modfedComponent}
+                data-modfed-component={props.modfedType === "preact" && props.modfedComponent}
             >
                 {props.children}
             </div>
