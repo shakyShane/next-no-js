@@ -4,12 +4,13 @@ import { readFileSync } from "fs";
 let manifest;
 let bootstrap;
 let components;
+let entry;
 
 if (process.env.NODE_ENV === "production") {
     try {
         const str = readFileSync(join(process.cwd(), ".next", "modfed-entry.json"), "utf8");
         manifest = JSON.parse(str);
-        const entry = manifest.children.find((child) => child.name === "modfed-entry");
+        entry = manifest.children.find((child) => child.name === "modfed-entry");
         bootstrap = entry.assetsByChunkName.bootstrap[0];
         if (!bootstrap) {
             console.error("could not load bootstrap");
@@ -21,9 +22,7 @@ if (process.env.NODE_ENV === "production") {
 
 if (process.env.NODE_ENV === "production") {
     try {
-        const str = readFileSync(join(process.cwd(), ".next", "modfed-components.json"), "utf8");
-        const manifest = JSON.parse(str);
-        components = manifest.namedChunkGroups;
+        components = entry.namedChunkGroups;
     } catch (e) {
         console.error("could not load component manifest");
     }
