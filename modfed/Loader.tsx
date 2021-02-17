@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 type LoaderProps = {
     modfedId: string;
-    modfedComponent?: string;
+    modfedComponent: string;
     modfedType: "vanilla" | "preact";
     modfedData?: any;
 };

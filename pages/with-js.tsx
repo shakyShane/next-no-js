@@ -31,7 +31,7 @@ export default function WithJs() {
                     <h3>The timer below was server-side rendered</h3>
                     <p>Once the page is ready, a tiny bundle loads and hydrates the markup</p>
                     <div style={{ border: "5px solid purple", padding: "1rem" }}>
-                        <Loader modfedId={"Counter"} modfedType={"preact"}>
+                        <Loader modfedId={"counter"} modfedType={"preact"} modfedComponent={"Counter"}>
                             <DynamicComponent />
                         </Loader>
                     </div>
