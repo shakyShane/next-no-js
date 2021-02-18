@@ -26,6 +26,9 @@ export default function Home() {
                     <h3>Examples:</h3>
                     <ul>
                         <li>
+                            <a href={"https://next-no-js-cc0feq40w.vercel.app/"}>Next.js + Turbo + on-demand SSR hydration</a>
+                        </li>
+                        <li>
                             <Link href={"/with-js"}>on-demand SSR hydration</Link>
                         </li>
                         <li>
@@ -48,6 +51,7 @@ export default function Home() {
                         <li>Sun Feb 14th: added vanilla-js example</li>
                         <li>Sun Feb 14th: added decentralised versions</li>
                         <li>Mon Feb 15th: added a component-level hydration example with data</li>
+                        <li>Mon Feb 18th: Next.js + Turbo + on-demand SSR hydration</li>
                     </ul>
                 </aside>
             </main>
