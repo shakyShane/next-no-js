@@ -1,58 +1,49 @@
 import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
+import {Next, Turbo} from "../ui/Logos";
 
 export default function Home() {
     return (
         <div className={styles.container}>
-            <Head>
-                <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
             <main className={styles.main}>
                 <div>
+                    <style jsx>{`
+                        //.logos { display: flex; align-items: center; }                    
+                        .plus { font-size: 30px; }                    
+                        .logos {text-align: center}
+                    `}</style>
+                    <div className={"logos"}>
+                        <Next />
+                        <p className={"plus"}>+</p>
+                        <Turbo />
+                    </div>
                     <h1 className={styles.title}>
-                        Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
+                        Next.js + Turbo + granular hydration
                     </h1>
                     <h2 className={styles.description}>
-                        A static site, with an opt-in 2kb runtime + granular SSR hydration
+                        Next.js: to generate the website.
                     </h2>
-                    <p className={styles.description}>This page has ZERO JavaScript - as it didn't need any</p>
-                    <p className={styles.description}>
-                        But in the examples below, JS can be loaded on-demand to either hydrate the components, or just
-                        to access the markup.
+                    <h2 className={styles.description}>
+                        Hotwire Turbo: to enable SPA like navigation
+                    </h2>
+                    <h2 className={styles.description}>
+                        Component-level hydration only when *you* choose
+                    </h2>
+                    <p className={styles.description}>Check out the first example below. It's a giant page of
+                    HTML generated via an MDX page in Next.js - but it incurs ZERO hydration costs when it loads.</p>
+                    <p>
+                        We're not opting out of JS though, half way down the page there's a gallery
+                        that was built with React - when this happens Preact will hydrate JUST that component,
+                        meaning perf remains great
                     </p>
                     <h3>Examples:</h3>
                     <ul>
                         <li>
-                            <Link href={"/blog"}>Blog link</Link>
-                        </li>
-                        <li>
-                            <Link href={"/with-js"}>on-demand SSR hydration</Link>
-                        </li>
-                        <li>
-                            <Link href={"/with-data"}>on-demand SSR hydration with `getStaticProps`</Link>
-                        </li>
-                        <li>
-                            <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
-                        </li>
-                        <li>
-                            <a href={"https://next-no-js-git-decentralized.shaneosbourne8.vercel.app/"}>
-                                Both examples above with decentralised modules (few extra KB, but easier to scale)
-                            </a>
+                            <Link href={"/blog"}>Large amount of HTML, with a hydrated component in the middle of</Link>
                         </li>
                     </ul>
                 </div>
-                <aside className={styles.updates}>
-                    <h3>Updates:</h3>
-                    <ul>
-                        <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
-                        <li>Sun Feb 14th: added vanilla-js example</li>
-                        <li>Sun Feb 14th: added decentralised versions</li>
-                        <li>Mon Feb 15th: added a component-level hydration example with data</li>
-                    </ul>
-                </aside>
             </main>
 
             <footer className={styles.footer}>
