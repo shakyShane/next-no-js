@@ -26,6 +26,9 @@ export default function Home() {
                     <h3>Examples:</h3>
                     <ul>
                         <li>
+                            <Link href={"/blog"}>Blog link</Link>
+                        </li>
+                        <li>
                             <Link href={"/with-js"}>on-demand SSR hydration</Link>
                         </li>
                         <li>
