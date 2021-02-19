@@ -1,3 +1,4 @@
+// @ts-ignore
 import("uiLib")
     .then((m) => {
         console.log("got mod", m);

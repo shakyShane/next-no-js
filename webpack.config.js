@@ -51,30 +51,33 @@ module.exports = () => {
                 alias: alias,
             },
             stats: {},
+            externals: {
+                uiLib: `promise fetch("/api/hello").then(x=>x.json())`,
+            },
             plugins: [
                 new ESBuildPlugin(),
                 new webpack.container.ModuleFederationPlugin({
                     name: "modfed-entry",
                     // List of remotes with URLs
                     remotes: {
-                        uiLib: "oops http://example.com",
+                        uiLib: "uiLib@uiLib",
                     },
 
                     // list of shared modules from shell
                     shared: ["react", "react-dom"],
                 }),
-                new webpack.container.ModuleFederationPlugin({
-                    name: "uiLib",
-                    // List of remotes with URLs
-                    // remotes: remotes,
-                    exposes: {
-                        "./Counter": "./components/Counter",
-                    },
-                    shared: {
-                        react: { import: false },
-                        "react-dom": { import: false },
-                    },
-                }),
+                // new webpack.container.ModuleFederationPlugin({
+                //     name: "uiLib",
+                //     // List of remotes with URLs
+                //     // remotes: remotes,
+                //     // exposes: {
+                //     //     "./Counter": "./components/Counter",
+                //     // },
+                //     shared: {
+                //         react: { import: false },
+                //         "react-dom": { import: false },
+                //     },
+                // }),
             ],
         },
     ];
