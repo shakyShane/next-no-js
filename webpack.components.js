@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const deps = require("./package.json").dependencies;
 const { join } = require("path");
 const { ESBuildPlugin } = require("esbuild-loader");
 
@@ -38,10 +39,8 @@ const esbuild = {
 module.exports = () => {
     return [
         {
-            name: "modfed-entry",
-            entry: {
-                bootstrap: "./modfed/bootstrap",
-            },
+            name: "modfed-preact-init",
+            entry: {},
             output: output,
             module: esbuild,
             devtool: "source-map",
@@ -51,18 +50,27 @@ module.exports = () => {
                 alias: alias,
             },
             stats: {},
-            externals: {
-                modfedManifest: `promise fetch("/_next/static/chunks/modfed/manifest.json").then(x=>x.json())`,
-            },
             plugins: [
                 new ESBuildPlugin(),
                 new webpack.container.ModuleFederationPlugin({
-                    name: "modfed-entry",
-                    // List of remotes with URLs
-                    remotes: {
-                        modfedManifest: "modfedManifest@modfedManifest",
+                    name: "modfedCounter",
+                    exposes: {
+                        ".": "./components/Counter",
                     },
-                    shared: ['react', 'react-dom']
+                    shared: {
+                        react: { import: false },
+                        "react-dom": { import: false },
+                    },
+                }),
+                new webpack.container.ModuleFederationPlugin({
+                    name: "modfedGallery",
+                    exposes: {
+                        ".": "./components/Gallery",
+                    },
+                    shared: {
+                        react: { import: false },
+                        "react-dom": { import: false },
+                    },
                 }),
             ],
         },

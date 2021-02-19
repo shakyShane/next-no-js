@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn modfed:build:entry && next build",
+    "build": "yarn modfed:build:entry && next build && yarn modfed:build:components",
     "modfed:build:entry": "./node_modules/.bin/webpack --json '.next/modfed-entry.json'",
+    "modfed:build:components": "./node_modules/.bin/webpack --config webpack.components.js --json '.next/static/chunks/modfed/manifest.json'",
     "lint:fix": "prettier '**/*.{ts,tsx,js}' --write",
     "next:build": "next build",
     "start": "next start",

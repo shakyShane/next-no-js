@@ -7,7 +7,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 
 const DynamicComponent = dynamic(() => {
-    return import(/* webpackChunkName: "modfed-counter" */ "../components/Gallery");
+    return import(/* webpackChunkName: "modfedGallery" */ "../components/Gallery");
 });
 
 type Props = {
@@ -46,10 +46,9 @@ export default function WithData(props: Props) {
                     <p>Reload the page without JS to try it out</p>
                     <div style={{ border: "1px dotted purple", padding: "10px" }}>
                         <Loader
-                            modfedId={"gallery"}
+                            modfedId={"modfedGallery"}
                             modfedType={"preact"}
                             modfedData={props.data}
-                            modfedComponent={"Gallery"}
                         >
                             <DynamicComponent {...props.data} />
                         </Loader>

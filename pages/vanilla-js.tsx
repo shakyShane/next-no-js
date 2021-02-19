@@ -6,7 +6,7 @@ import Link from "next/link";
 import Head from "next/head";
 
 const DynamicComponent = dynamic(() => {
-    return import(/* webpackChunkName: "modfed-counter" */ "../components/Counter");
+    return import(/* webpackChunkName: "modfedCounter" */ "../components/Counter");
 });
 
 export default function VanillaJs() {
@@ -42,7 +42,7 @@ export default function VanillaJs() {
                     <h3>The timer below was server-side rendered</h3>
                     <p>Once the page is ready, a tiny bundle loads and executes, re-using the DOM</p>
                     <div style={{ border: "5px solid purple", padding: "1rem" }}>
-                        <Loader modfedId={"Counter"} modfedType={"vanilla"}>
+                        <Loader modfedId={"modfedCounter"} modfedType={"vanilla"}>
                             <DynamicComponent />
                         </Loader>
                     </div>

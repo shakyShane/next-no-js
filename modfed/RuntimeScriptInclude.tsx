@@ -3,6 +3,8 @@ import { readFileSync } from "fs";
 
 let manifest;
 let bootstrap;
+let components;
+let entry;
 
 if (process.env.NODE_ENV === "production") {
     try {

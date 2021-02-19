@@ -9,7 +9,6 @@ type LoaderProps =
     | {
           modfedType: "preact";
           modfedId: string;
-          modfedComponent: string;
           modfedData?: any;
       };
 
@@ -24,7 +23,6 @@ export function Loader(props: PropsWithChildren<LoaderProps>) {
             <div
                 data-modfed-id={props.modfedId}
                 data-modfed-type={props.modfedType}
-                data-modfed-component={props.modfedType === "preact" && props.modfedComponent}
             >
                 {props.children}
             </div>
