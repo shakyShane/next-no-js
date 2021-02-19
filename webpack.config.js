@@ -4,11 +4,11 @@ const { ESBuildPlugin } = require("esbuild-loader");
 
 const outputDir = join(__dirname, ".next/static/chunks/modfed");
 const publicPath = "/_next/static/chunks/modfed/";
-const mode = "production";
+const mode = "development";
 
 const output = {
-    filename: "[name].[contenthash].js",
-    chunkFilename: "[name].[contenthash].js",
+    filename: "[name].js",
+    chunkFilename: "[name].js",
     path: outputDir,
     publicPath: publicPath,
 };
@@ -56,10 +56,24 @@ module.exports = () => {
                 new webpack.container.ModuleFederationPlugin({
                     name: "modfed-entry",
                     // List of remotes with URLs
-                    // remotes: remotes,
+                    remotes: {
+                        uiLib: "oops http://example.com",
+                    },
 
                     // list of shared modules from shell
                     shared: ["react", "react-dom"],
+                }),
+                new webpack.container.ModuleFederationPlugin({
+                    name: "uiLib",
+                    // List of remotes with URLs
+                    // remotes: remotes,
+                    exposes: {
+                        "./Counter": "./components/Counter",
+                    },
+                    shared: {
+                        react: { import: false },
+                        "react-dom": { import: false },
+                    },
                 }),
             ],
         },
