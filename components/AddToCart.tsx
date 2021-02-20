@@ -22,7 +22,7 @@ export function AddToCart(props: PropsWithChildren<Props>) {
         }, 1000);
     }, []);
     return (
-        <div className={"absolute right-0 bottom-0"}>
+        <div className={"absolute right-0 bottom-4"}>
             <script
                 type={"text/json"}
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(rest).replace(/</g, "\\u003c") }}

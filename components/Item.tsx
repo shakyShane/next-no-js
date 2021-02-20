@@ -11,16 +11,16 @@ type Props = {
 export function Item(props: Props) {
     return (
         <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-            <div className="w-full relative pb-48">
+            <div className="w-full relative pb-48 overflow-hidden">
                 <img
                     src={props.item.image}
                     className="w-full block mb-0 absolute top-0 left-0"
                     loading={props.index === 0 ? "eager" : "lazy"}
                     style={{ outline: "1px dotted black" }}
                 />
-                <AddToCart sku={props.item.sku} />
             </div>
-            <div className="px-5 py-3">
+            <div className="px-5 py-3 relative">
+                <AddToCart sku={props.item.sku} />
                 <Link href={`/product?sku=${props.item.sku}`}>
                     <a className="text-gray-700 uppercase block hover:underline">{props.item.name}</a>
                 </Link>
