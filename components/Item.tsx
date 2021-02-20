@@ -5,17 +5,18 @@ import { Product } from "../data/products";
 
 type Props = {
     item: Product;
+    index: number;
 };
 
 export function Item(props: Props) {
     return (
-        <div className="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
-            <div
-                className="flex items-end justify-end h-56 w-full bg-cover"
-                // style={{
-                //     backgroundImage: `url('${encodeURI(props.item.image)}')`,
-                // }}
-            >
+        <div className="w-full max-w-sm mx-auto rounded-md shadow-md">
+            <div className="h-56 w-full relative">
+                <img
+                    src={props.item.image}
+                    className="w-full block mb-0"
+                    loading={props.index === 0 ? "eager" : "lazy"}
+                />
                 <AddToCart sku={props.item.sku} />
             </div>
             <div className="px-5 py-3">
