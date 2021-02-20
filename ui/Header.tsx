@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Header() {
     return (
         <header>
@@ -54,15 +55,12 @@ export default function Header() {
                 </div>
                 <nav className="sm:flex sm:justify-center sm:items-center mt-4 hidden">
                     <div className="flex flex-col sm:flex-row">
-                        <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">
-                            Home
-                        </a>
-                        <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">
-                            Shop
-                        </a>
-                        <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">
-                            Categories
-                        </a>
+                        <Link href={"/"}>
+                            <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0">Home</a>
+                        </Link>
+                        <Link href="/category">
+                            <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0">Watches</a>
+                        </Link>
                         <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">
                             Contact
                         </a>

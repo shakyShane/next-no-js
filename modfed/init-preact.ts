@@ -2,10 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 const items = document.querySelectorAll(`[data-modfed-type="preact"]`);
 
-document.addEventListener("add-to-cart", (evt) => {
-    console.log("got add-to-cart", evt);
-});
-
 items.forEach((item: HTMLDivElement) => {
     console.log("hydrating", item);
     const { modfedId, modfedComponent, modfedSelf } = item.dataset;

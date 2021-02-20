@@ -11,7 +11,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head />
-                <body className="h-screen flex items-center justify-center">
+                <body>
                     <Main />
                     <NextScript />
                     <RuntimeScriptInclude html={this.props.html} />

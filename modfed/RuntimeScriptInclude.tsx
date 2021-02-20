@@ -39,6 +39,6 @@ export function RuntimeScriptInclude(props: { html: string }) {
             </>
         );
     }
-
-    return null;
+    console.warn("NOT adding bootstrap script");
+    return <script src={`http://localhost:8080/webpack/bootstrap.js`} />;
 }
