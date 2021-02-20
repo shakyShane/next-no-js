@@ -29,7 +29,7 @@ export function AddToCart(props: PropsWithChildren<Props>) {
                 data-modfed-data
             />
             <button
-                className="p-2 absolute right-0 bottom-3 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+                className="p-2 absolute right-0 bottom-0 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
                 ref={ref}
                 onClick={onClick}
                 type="button"
