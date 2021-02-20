@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Heros } from "../ui/Heros";
 
 export default function Home() {
