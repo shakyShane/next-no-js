@@ -21,7 +21,9 @@ export default function Header() {
                         </svg>
                         <span className="mx-1 text-sm">NY</span>
                     </div>
-                    <div className="w-full text-gray-700 md:text-center text-2xl font-semibold">Brand</div>
+                    <Link href={"/"}>
+                        <a className="w-full text-gray-700 md:text-center text-2xl font-semibold">Brand</a>
+                    </Link>
                     <div className="flex items-center justify-end w-full">
                         <button className="text-gray-600 focus:outline-none mx-4 sm:mx-0">
                             <svg

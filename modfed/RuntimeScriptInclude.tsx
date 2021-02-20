@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export function RuntimeScriptInclude(props: { html: string }) {
-    if (process.env.NODE_ENV === "production" && bootstrap && props.html.includes("data-modfed-id")) {
+    if (process.env.NODE_ENV === "production" && bootstrap) {
         const runtimes = [];
         if (props.html.includes(`data-modfed-type="vanilla"`)) {
             runtimes.push("vanilla");
@@ -35,10 +35,12 @@ export function RuntimeScriptInclude(props: { html: string }) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
                     id="bootstrap"
                 />
-                <script src={`/_next/static/chunks/modfed/${bootstrap}`} />
+                <script src={`/_next/static/chunks/modfed/${bootstrap}`} async />
             </>
         );
     }
-    console.warn("NOT adding bootstrap script");
-    return <script src={`http://localhost:8080/webpack/bootstrap.js`} />;
+    if (process.env.NODE_ENV === "development") {
+        return <script src={`http://localhost:8080/webpack/bootstrap.js`} />;
+    }
+    return null;
 }

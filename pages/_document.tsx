@@ -10,11 +10,12 @@ class MyDocument extends Document {
     render() {
         return (
             <Html>
-                <Head />
+                <Head>
+                    <RuntimeScriptInclude html={this.props.html} />
+                </Head>
                 <body>
                     <Main />
                     <NextScript />
-                    <RuntimeScriptInclude html={this.props.html} />
                 </body>
             </Html>
         );

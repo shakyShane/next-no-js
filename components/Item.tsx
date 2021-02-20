@@ -16,7 +16,7 @@ export function Item(props: Props) {
                     backgroundImage: `url('${encodeURI(props.item.image)}')`,
                 }}
             >
-                <AddToCart />
+                <AddToCart sku={props.item.sku} />
             </div>
             <div className="px-5 py-3">
                 <Link href={`/product?sku=${props.item.sku}`}>
