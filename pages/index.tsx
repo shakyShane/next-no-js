@@ -1,67 +1,19 @@
-import Head from "next/head";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
+import { Item } from "../ui/Item";
+import Pagination from "../ui/Pagination";
 
 export default function Home() {
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-
-            <main className={styles.main}>
-                <div>
-                    <h1 className={styles.title}>
-                        Woop! <span style={{ color: "blue" }}>Next.js, without the JS</span>
-                    </h1>
-                    <h2 className={styles.description}>
-                        A static site, with an opt-in 2kb runtime + granular SSR hydration
-                    </h2>
-                    <p className={styles.description}>This page has ZERO JavaScript - as it didn't need any</p>
-                    <p className={styles.description}>
-                        But in the examples below, JS can be loaded on-demand to either hydrate the components, or just
-                        to access the markup.
-                    </p>
-                    <h3>Examples:</h3>
-                    <ul>
-                        <li>
-                            <a href={"https://next-no-js-cc0feq40w.vercel.app/"}>Next.js + Turbo + on-demand SSR hydration</a>
-                        </li>
-                        <li>
-                            <Link href={"/with-js"}>on-demand SSR hydration</Link>
-                        </li>
-                        <li>
-                            <Link href={"/with-data"}>on-demand SSR hydration with `getStaticProps`</Link>
-                        </li>
-                        <li>
-                            <Link href={"/vanilla-js"}>on-demand vanilla JS</Link>
-                        </li>
-                        <li>
-                            <a href={"https://next-no-js-git-decentralized.shaneosbourne8.vercel.app/"}>
-                                Both examples above with decentralised modules (few extra KB, but easier to scale)
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <aside className={styles.updates}>
-                    <h3>Updates:</h3>
-                    <ul>
-                        <li>Sun Feb 14th: added content-hashes to filenames in on-demand bundles</li>
-                        <li>Sun Feb 14th: added vanilla-js example</li>
-                        <li>Sun Feb 14th: added decentralised versions</li>
-                        <li>Mon Feb 15th: added a component-level hydration example with data</li>
-                        <li>Mon Feb 18th: Next.js + Turbo + on-demand SSR hydration</li>
-                    </ul>
-                </aside>
-            </main>
-
-            <footer className={styles.footer}>
-                <a href="https://twitter.com/shaneosbourne" target="_blank" rel="noopener noreferrer">
-                    An experiment by @shaneOsbourne
-                </a>
-            </footer>
-        </div>
+        <>
+            <h3 className="text-gray-700 text-2xl font-medium">Wrist Watch</h3>
+            <span className="mt-3 text-sm text-gray-500">200+ Products</span>
+            <Item
+                item={{
+                    image:
+                        "https://images.unsplash.com/photo-1495856458515-0637185db551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+                }}
+            />
+            <Pagination />
+        </>
     );
 }
 
