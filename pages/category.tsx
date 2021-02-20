@@ -1,6 +1,5 @@
 import { Item } from "../components/Item";
 import Pagination from "../ui/Pagination";
-import { Loader } from "../modfed/Loader";
 
 export default function Category() {
     return (

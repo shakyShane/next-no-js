@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCallback, useRef } from "react";
 
 export function AddToCart() {
     const ref = useRef<HTMLButtonElement>(null);
+    const [disabled, setDisabled] = useState(false);
     const onClick = useCallback(() => {
         const event = new CustomEvent("add-to-cart", {
             bubbles: true,
             detail: { sku: "012", qty: 1 },
         });
         ref.current.dispatchEvent(event);
+        setDisabled(true);
+        setTimeout(() => {
+            setDisabled(false);
+        }, 1000);
     }, []);
     return (
         <button
@@ -16,6 +21,7 @@ export function AddToCart() {
             ref={ref}
             onClick={onClick}
             type="button"
+            disabled={disabled}
         >
             <svg
                 className="h-5 w-5"
