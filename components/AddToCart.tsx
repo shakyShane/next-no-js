@@ -1,6 +1,22 @@
-export function AddToBasket() {
+import React from "react";
+import { useCallback, useRef } from "react";
+
+export function AddToCart() {
+    const ref = useRef<HTMLButtonElement>(null);
+    const onClick = useCallback(() => {
+        const event = new CustomEvent("add-to-cart", {
+            bubbles: true,
+            detail: { sku: "012", qty: 1 },
+        });
+        ref.current.dispatchEvent(event);
+    }, []);
     return (
-        <button className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+        <button
+            className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+            ref={ref}
+            onClick={onClick}
+            type="button"
+        >
             <svg
                 className="h-5 w-5"
                 fill="none"
@@ -15,3 +31,5 @@ export function AddToBasket() {
         </button>
     );
 }
+
+export default AddToCart;

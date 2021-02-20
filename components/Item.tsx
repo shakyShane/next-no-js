@@ -1,10 +1,13 @@
-import { AddToBasket } from "../components/AddToCart";
+import React from "react";
+import { AddToCart } from "./AddToCart";
+import { Loader } from "../modfed/Loader";
 
 type Props = {
     item: {
         image: string;
     };
 };
+
 export function Item(props: Props) {
     return (
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
@@ -15,7 +18,9 @@ export function Item(props: Props) {
                         backgroundImage: `url('${encodeURI(props.item.image)}')`,
                     }}
                 >
-                    <AddToBasket />
+                    <Loader modfedType={"preact"} modfedId={"item"} modfedComponent={"AddToCart"}>
+                        <AddToCart />
+                    </Loader>
                 </div>
                 <div className="px-5 py-3">
                     <h3 className="text-gray-700 uppercase">Classic watch</h3>
@@ -25,3 +30,5 @@ export function Item(props: Props) {
         </div>
     );
 }
+
+export default Item;
