@@ -1,7 +1,25 @@
 import Link from "next/link";
+import Head from "next/head";
 export function Heros() {
     return (
         <>
+            <Head>
+                <link
+                    rel="preload"
+                    href="https://images.unsplash.com/photo-1577655197620-704858b270ac?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=144"
+                    as="image"
+                />
+                <link
+                    rel="preload"
+                    href="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                    as="image"
+                />
+                <link
+                    rel="preload"
+                    href="https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+                    as="image"
+                />
+            </Head>
             <div
                 className="h-64 rounded-md overflow-hidden bg-cover bg-center"
                 style={{
