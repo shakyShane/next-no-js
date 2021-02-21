@@ -1,4 +1,5 @@
 import { global } from "./global";
+import { clear } from "./init-preact";
 
 global();
 
@@ -10,6 +11,10 @@ if (hotwire) {
         document.addEventListener("turbo:load", function () {
             console.log("turbo:load");
             load();
+        });
+        document.addEventListener("turbo:before-visit", function () {
+            console.log("turbo:before-visit");
+            clearAll();
         });
     });
 } else {
@@ -38,4 +43,10 @@ async function maybeAttach(el: HTMLElement) {
         console.log("could not hydrate ", el);
     }
 }
-export {};
+
+function clearAll() {
+    const items = document.querySelectorAll(`[data-modfed-type="preact"]`);
+    items.forEach((item) => {
+        clear(item as HTMLElement);
+    });
+}

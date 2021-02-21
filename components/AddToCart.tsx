@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useCallback, useRef } from "react";
 import { CartEvents, Namespaces } from "../modfed/features/cart.types";
 
@@ -16,10 +16,11 @@ export function AddToCart(props: PropsWithChildren<Props>) {
             detail: { type: "cart:add", payload: { sku: props.sku, qty: 1 } },
         });
         ref.current.dispatchEvent(event);
-        setDisabled(true);
-        setTimeout(() => {
-            setDisabled(false);
-        }, 1000);
+    }, []);
+    useEffect(() => {
+        return () => {
+            console.log("tear down!");
+        };
     }, []);
     return (
         <div className={"absolute right-0 bottom-4"}>

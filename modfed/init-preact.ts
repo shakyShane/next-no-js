@@ -26,3 +26,14 @@ export function hydrate(item: HTMLElement) {
         }
     });
 }
+
+export function clear(item: HTMLElement) {
+    const { modfedId, modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
+    if (modfedSelf) {
+        console.log("clearing a self-mount", item);
+        ReactDOM.render(null, item.parentElement);
+    } else {
+        console.log("clearing a mount", item);
+        ReactDOM.render(null, item);
+    }
+}

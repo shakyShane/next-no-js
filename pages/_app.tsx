@@ -10,13 +10,11 @@ function MyApp({ Component, pageProps }) {
             <Loader modfedType={"preact"} modfedComponent={"Minicart"}>
                 <Minicart />
             </Loader>
-            <turbo-frame id="message_1" target="_top">
-                <main className="my-8">
-                    <div className="container mx-auto px-6">
-                        <Component {...pageProps} />
-                    </div>
-                </main>
-            </turbo-frame>
+            <main className="my-8">
+                <div className="container mx-auto px-6">
+                    <Component {...pageProps} />
+                </div>
+            </main>
             <footer className="bg-gray-200">
                 <div className="container mx-auto px-6 py-3 flex justify-between items-center">
                     <a href="#" className="text-xl font-bold text-gray-500 hover:text-gray-400">
