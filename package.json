@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:all": "concurrently 'NODE_ENV=development yarn modfed:watch' 'next dev'",
-    "build": "yarn modfed:build:entry && next build",
+    "build": "yarn clean && yarn modfed:build:entry && next build",
     "modfed:build:entry": "webpack --json '.next/modfed-entry.json'",
     "modfed:watch": "webpack serve",
     "lint:fix": "prettier '**/*.{ts,tsx,js}' --write",
