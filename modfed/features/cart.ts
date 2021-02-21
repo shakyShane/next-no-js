@@ -1,26 +1,44 @@
-import { Machine } from "xstate";
-import { CartAddEvent } from "./cart.types";
+import { assign, Machine } from "xstate";
+import { CartEvents } from "./cart.types";
 
 type Schema = {
-    states: { idle: Record<string, any> };
+    states: {
+        closed: Record<string, any>;
+        open: Record<string, any>;
+    };
 };
 
-type Context = Record<string, any>;
+export type Context = {
+    open: boolean;
+};
 
-export const machine = Machine<Context, Schema, CartAddEvent>(
+export type PublicContext = Context;
+
+export const machine = Machine<Context, Schema, CartEvents>(
     {
         id: "cart",
-        initial: "idle",
+        initial: "closed",
+        context: {
+            open: false,
+        },
         states: {
-            idle: {
+            closed: {
                 on: {
                     "cart:add": { actions: "addToCart" },
+                    "minicart:open": { target: "open", actions: "openCart" },
+                },
+            },
+            open: {
+                on: {
+                    "minicart:close": { target: "closed", actions: "closeCart" },
                 },
             },
         },
     },
     {
         actions: {
+            openCart: assign({ open: true }),
+            closeCart: assign({ open: false }),
             addToCart: (ctx, evt) => {
                 console.log("got an add to cart message", ctx, evt);
             },
