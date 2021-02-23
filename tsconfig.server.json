@@ -1,36 +1,25 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    "sourceMap": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "CommonJS",
+    "outDir": "./server-dist",
+    "baseUrl": ".",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "downlevelIteration": true,
-    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
       "~/*": ["./*"]
     }
   },
-  "include": [
-    "./types.d.ts",
-    "./next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules", ".next", "out"],
+  "include": ["server/**/*.ts", "./next-env.d.ts", "./types.d.ts"]
 }

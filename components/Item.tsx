@@ -20,7 +20,7 @@ export function Item(props: Props) {
                 />
             </div>
             <div className="px-5 py-3 relative">
-                <AddToCart sku={props.item.sku} />
+                {/*<AddToCart sku={props.item.sku} />*/}
                 <Link href={`/product?sku=${props.item.sku}`}>
                     <a className="text-gray-700 uppercase block hover:underline">{props.item.name}</a>
                 </Link>

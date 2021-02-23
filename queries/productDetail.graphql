@@ -1,0 +1,44 @@
+query productDetail(
+    $urlKey: String = "black-house-log-holder-1159513"
+) {
+    productDetail: products(filter: { url_key: { eq: $urlKey } }) {
+        items {
+            __typename
+            sku
+            id
+            name
+            special_price
+            price_range {
+                minimum_price {
+                    regular_price {
+                        value
+                    }
+                }
+            }
+            image {
+                label
+                url
+            }
+            small_image {
+                url
+                label
+            }
+            media_gallery {
+                label
+                url
+            }
+            short_description {
+                html
+            }
+            description {
+                html
+            }
+            meta_title
+            meta_keyword
+            meta_description
+            url_key
+            url_path
+            id
+        }
+    }
+}

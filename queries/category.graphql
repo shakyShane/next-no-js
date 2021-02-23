@@ -1,0 +1,20 @@
+query category($id: Int = 2125) {
+    category(id: $id) {
+        description
+        name
+        url_key
+        url_path
+        breadcrumbs {
+            category_id
+            category_level
+            category_name
+            category_url_key
+            category_url_path
+        }
+        meta_description
+        meta_title
+        image
+        meta_keywords
+        id
+    }
+}
