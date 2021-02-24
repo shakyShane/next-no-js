@@ -48,7 +48,7 @@ export default function WithForm(props: Props) {
                     </p>
                 </div>
                 <aside className={styles.updates}>
-                    <Loader modfedType={"preact"} modfedComponent={"Form"} modfedData={formProps}>
+                    <Loader modfedType={"preact"} modfedId={"Form"} modfedComponent={"Form"} modfedData={formProps}>
                         <Form {...formProps} />
                     </Loader>
                 </aside>
