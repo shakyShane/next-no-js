@@ -1,19 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
-import Joi from "joi";
 import Cookies from "cookies";
-
-type PostError = {
-    message: string;
-    path: (string | number)[];
-};
+import { FieldError, validate } from "../../lib";
 
 export default (req, res) => {
     switch (req.method) {
         case "POST": {
             const { email } = req.body;
             if (email === "dup@example.com") {
-                const errors: PostError[] = [
+                const errors: FieldError[] = [
                     {
                         message: "This email already exists",
                         path: ["email"],
@@ -21,18 +15,8 @@ export default (req, res) => {
                 ];
                 return delay(() => error(req, res, errors, { email }));
             }
-            const authDataSchema = Joi.object({
-                email: Joi.string().email().lowercase().required(),
-                password: Joi.string().min(6).required().strict(),
-            });
-            const result = authDataSchema.validate(req.body);
-            if (result.error) {
-                const errors = result.error.details.map((d) => {
-                    return {
-                        message: d.message,
-                        path: d.path,
-                    };
-                });
+            const errors = validate(req.body);
+            if (errors.length) {
                 return delay(() => error(req, res, errors, { email }));
             }
             return delay(() => redirect(req, res, "/account"));
@@ -43,7 +27,7 @@ export default (req, res) => {
     }
 };
 
-function error(req, res, errors: PostError[], values: Record<string, string>) {
+function error(req, res, errors: FieldError[], values: Record<string, string>) {
     const jsonResp = req.query.resp === "json";
     const json = { values, errors };
     if (jsonResp) {

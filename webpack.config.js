@@ -59,7 +59,7 @@ module.exports = () => {
                 //     // remotes: remotes,
                 //
                 //     // list of shared modules from shell
-                //     shared: ["react", "react-dom"],
+                //     shared: ["react", "react-dom", "joi", "formik"],
                 // }),
             ],
         },
