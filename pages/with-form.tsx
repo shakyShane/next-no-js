@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { GetServerSideProps } from "next";
-import { Login } from "../ui/Login";
 import Cookies from "cookies";
 import { Form } from "../browser-components/Form";
 import { Loader } from "../modfed/Loader";
@@ -23,6 +22,7 @@ type Props =
 
 export default function WithForm(props: Props) {
     const formProps = {
+        kind: props.kind,
         values: props.kind === "login-error" ? props.values : {},
         errors: props.kind === "login-error" ? props.errors : [],
     };

@@ -55,7 +55,7 @@ function error(req, res, errors: PostError[], values: Record<string, string>) {
     } catch (e) {
         console.error("could not set cookie", e);
     }
-    return redirect(req, res, req.headers.referer);
+    return redirect(req, res, req.headers.referer || "/");
 }
 
 function redirect(req, res, to) {

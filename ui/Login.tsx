@@ -9,7 +9,12 @@ export function Login() {
                 <code>{JSON.stringify(ctx, null, 2)}</code>
             </pre>
             <label htmlFor="email">Email:</label>
-            <input id="email" type="email" name="email" defaultValue={ctx.kind === "idle" && ctx.values["email"]} />
+            <input
+                id="email"
+                type="email"
+                name="email"
+                defaultValue={ctx.kind === "error" ? ctx.values["email"] : ""}
+            />
 
             <label htmlFor="password">Password:</label>
             <input id="password" type="password" name="password" required />

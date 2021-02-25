@@ -7,7 +7,6 @@ type FormError = {
 type FormStates =
     | {
           kind: "idle";
-          values: Record<string, string>;
       }
     | {
           kind: "submitting";
@@ -25,16 +24,27 @@ type FormStates =
 
 export const FormContext = React.createContext<FormStates>({
     kind: "idle",
-    values: {},
 });
 
-type Props = {
-    values: Record<string, string>;
-    errors: FormError[];
-};
+type Props =
+    | {
+          kind: "login-error";
+          values: Record<string, string>;
+          errors: FormError[];
+      }
+    | {
+          kind: "login";
+      };
 
 export function Form(props: PropsWithChildren<Props>) {
-    const [state, setState] = useState<FormStates>({ kind: "idle", values: props.values });
+    const [state, setState] = useState<FormStates>(() => {
+        if (props.kind === "login") {
+            return { kind: "idle" };
+        }
+        if (props.kind === "login-error") {
+            return { kind: "error", values: props.values, errors: props.errors };
+        }
+    });
     const onSubmit = useCallback((e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -60,7 +70,7 @@ export function Form(props: PropsWithChildren<Props>) {
                     break;
                 }
                 default: {
-                    setState({ kind: "idle", values: {} });
+                    setState({ kind: "idle" });
                     break;
                 }
             }
