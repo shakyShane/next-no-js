@@ -11,7 +11,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head />
-                <body>
+                <body className="bg-gray-100 font-sans leading-normal tracking-normal">
                     <Main />
                     <NextScript />
                     <RuntimeScriptInclude html={this.props.html} />

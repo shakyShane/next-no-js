@@ -41,6 +41,7 @@ export function Gallery(props: Props) {
                     .main {
                         width: 250px;
                         height: 250px;
+                        margin: 0 auto;
                     }
                 `}
             </style>
@@ -68,5 +69,5 @@ export function Gallery(props: Props) {
         </div>
     );
 }
-
+Gallery.displayName = "Gallery";
 export default Gallery;
