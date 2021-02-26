@@ -39,6 +39,6 @@ export function RuntimeScriptInclude(props: { html: string }) {
             </>
         );
     }
-
+    console.log("not adding JS");
     return null;
 }
