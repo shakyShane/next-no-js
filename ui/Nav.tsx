@@ -11,7 +11,7 @@ export function Nav() {
                 <div className="pl-4">
                     <a
                         className="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl"
-                        href="#"
+                        href="/"
                     >
                         Next, no js.
                     </a>
