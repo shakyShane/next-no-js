@@ -1,0 +1,50 @@
+## This page uses the regular `getStaticProps` from NextJS to get some image data
+
+You then write the Gallery feature as a regular idiomatic React component - using click handlers, accessing data,
+adding CSS etc
+
+But then when the page loads in the browser, the runtime will notice that there's a component to hydrate and it will
+load in Preact along with <strong>just enough</strong> data to re-hydrate this component alone - NOT the entire
+page. Seriously, go and view:source to see what I mean :)
+
+## But how does it look in code?
+
+The default with this approach is that EVERYTHING is static/inert by default.
+That means the following code will server-render the HTML for all elements (h1, h2 etc) AND the gallery...
+
+```typescript jsx
+function App(props) {
+    return (
+        <main>
+            <h1>Welcome</h1>
+            <h2>Please view our gallery</h2>
+            <Gallery images={props.images} />
+        </main>
+    );
+}
+```
+
+...but ZERO JavaScript would be loaded onto this page, meaning NO hydration costs. This can really make a difference
+when you begin to have large pages with hundreds/thousands of DOM nodes
+
+If you <em>do</em> want this to be controlled though, simply wrap it in a `BrowserComponent`
+
+```typescript jsx
+function App(props) {
+    return (
+        <main>
+            <h1>Welcome</h1>
+            <h2>Please view our gallery</h2>
+            <BrowserComponent>
+                <Gallery images={props.images} />
+            </BrowserComponent>
+        </main>
+    );
+}
+```
+
+JS saving on this page: <strong>over 55kb</strong>
+
+## The gallery below was server-side rendered
+
+Reload the page without JS to try it out

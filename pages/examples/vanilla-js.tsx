@@ -1,9 +1,9 @@
 import React from "react";
-import { BrowserComponent } from "../modfed/BrowserComponent";
+import { BrowserComponent } from "../../modfed/BrowserComponent";
 import Link from "next/link";
 import Head from "next/head";
-import { Counter } from "../components/Counter";
-import { DemoBlock, H1, H2, H3, P } from "../ui/Type";
+import { Counter } from "../../components/Counter";
+import { DemoBlock, H1, H2, H3, P } from "../../ui/Type";
 
 export default function VanillaJs() {
     return (

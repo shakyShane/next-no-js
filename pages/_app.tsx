@@ -1,8 +1,10 @@
 import "tailwindcss/tailwind.css";
+import "../styles/highlight.css";
 import { Nav } from "../ui/Nav";
-import Link from "next/link";
 import { Footer } from "../ui/Footer";
-import { HomeLink } from "../ui/Type";
+import { A, Code, H1, H2, H3, HomeLink, P } from "../ui/Type";
+import { MDXProvider } from "@mdx-js/react";
+import { CodeInPre, Pre } from "../components/CodeBlock";
 
 function MyApp({ Component, pageProps, ...rest }) {
     return (
@@ -14,7 +16,20 @@ function MyApp({ Component, pageProps, ...rest }) {
                     style={{ fontFamily: "Georgia,serif" }}
                 >
                     {rest.router.pathname !== "/" && <HomeLink />}
-                    <Component {...pageProps} />
+                    <MDXProvider
+                        components={{
+                            h1: H1,
+                            h2: H2,
+                            h3: H3,
+                            p: P,
+                            a: A,
+                            code: CodeInPre,
+                            inlineCode: Code,
+                            pre: Pre,
+                        }}
+                    >
+                        <Component {...pageProps} />
+                    </MDXProvider>
                     <div className="pt-4">{rest.router.pathname !== "/" && <HomeLink />}</div>
                 </div>
             </div>

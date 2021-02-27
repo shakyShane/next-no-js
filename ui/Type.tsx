@@ -51,7 +51,11 @@ export function H2(props: PropsWithChildren<any>) {
 }
 
 export function H3(props: PropsWithChildren<any>) {
-    return <h3 className="font-sans break-normal text-gray-900 pt-4 pb-2 text-1xl md:text-1xl">{props.children}</h3>;
+    return (
+        <h3 className="font-bold font-sans break-normal text-gray-900 pt-4 pb-2 text-1xl md:text-1xl">
+            {props.children}
+        </h3>
+    );
 }
 
 export function UL(props: PropsWithChildren<HTMLAttributes<any>>) {

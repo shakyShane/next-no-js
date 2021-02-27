@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { A, ALink, H1, H2, H3, LI, P, UL } from "../ui/Type";
-import { CodeBlock } from "../components/CodeBlock";
 
 export default function Home() {
     return (
@@ -22,13 +21,13 @@ export default function Home() {
                 <H3>Examples:</H3>
                 <UL>
                     <LI>
-                        <ALink href={"/with-js"}>on-demand SSR hydration</ALink>
+                        <ALink href={"/examples/with-js"}>on-demand SSR hydration</ALink>
                     </LI>
                     <LI>
-                        <ALink href={"/with-data"}>on-demand SSR hydration with `getStaticProps`</ALink>
+                        <ALink href={"/examples/with-data"}>on-demand SSR hydration with `getStaticProps`</ALink>
                     </LI>
                     <LI>
-                        <ALink href={"/vanilla-js"}>on-demand vanilla JS</ALink>
+                        <ALink href={"/examples/vanilla-js"}>on-demand vanilla JS</ALink>
                     </LI>
                     <LI>
                         <ALink href={"https://next-no-js-cc0feq40w.vercel.app/"}>

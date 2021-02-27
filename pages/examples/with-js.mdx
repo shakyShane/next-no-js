@@ -1,0 +1,23 @@
+import { BrowserComponent } from "../../modfed/BrowserComponent";
+import { Counter } from "../../components/Counter";
+import { DemoBlock } from "../../ui/Type";
+
+# On-demand JavaScript runtime + Preact
+
+## The initial HTML for this page was rendered at build time - so it works without JavaScript + (really, try it)
+
+But, when a page like this contains a Component marked as JS-ENABLED, the 2kb runtime loads, and then
+loads any micro-bundles required for the component (in this example, that's Preact/compat)
+
+Thanks to Module Federation, if multiple components on the same page share dependencies (eg: Preact)
+they will 'share' them intelligently
+
+### The timer below was server-side rendered
+
+Once the page is ready, a tiny bundle loads and hydrates the markup
+
+<DemoBlock>
+    <BrowserComponent>
+        <Counter />
+    </BrowserComponent>
+</DemoBlock>
