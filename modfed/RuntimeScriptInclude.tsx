@@ -5,11 +5,11 @@ let manifest;
 let bootstrap;
 let CWD = process.cwd();
 let NEXT_DIR = existsSync(join(CWD, ".next"));
-let MANIFEST_EXISTS = existsSync(join(CWD, ".next", "modfed-entry.json"));
+let MANIFEST_EXISTS = existsSync(join(CWD, "public", "modfed-entry.json"));
 
 if (process.env.NODE_ENV === "production") {
     try {
-        const str = readFileSync(join(CWD, ".next", "modfed-entry.json"), "utf8");
+        const str = readFileSync(join(CWD, "public", "modfed-entry.json"), "utf8");
         manifest = JSON.parse(str);
         const entry = manifest.children.find((child) => child.name === "modfed-entry");
         bootstrap = entry.assetsByChunkName.bootstrap[0];
