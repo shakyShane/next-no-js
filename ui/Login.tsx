@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FormContext } from "../browser-components/Form";
+import { FormContext } from "~/browser-components/Form";
 
 export function Login() {
     const ctx = useContext(FormContext);

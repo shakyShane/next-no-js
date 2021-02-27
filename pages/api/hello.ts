@@ -9,7 +9,7 @@ export default (req, res) => {
             if (email === "dup@example.com") {
                 const errors: FieldError[] = [
                     {
-                        message: "This email already exists",
+                        message: "This email already exists. Please use another",
                         path: ["email"],
                     },
                 ];

@@ -1,9 +1,5 @@
 import { Layout } from "../../../ui/Layout";
 
-export const meta = {
-    title: "on-demand, component-level hydration",
-};
-
 ## This page uses the regular `getStaticProps` from NextJS to get some image data
 
 You then write the Gallery feature as a regular idiomatic React component - using click handlers, accessing data,
@@ -54,5 +50,9 @@ JS saving on this page: <strong>over 55kb</strong>
 ## The gallery below was server-side rendered
 
 Reload the page without JS to try it out
+
+export const meta = {
+    title: "on-demand, component-level hydration",
+};
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>;

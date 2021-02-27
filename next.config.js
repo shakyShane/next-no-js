@@ -6,7 +6,7 @@ const withMDX = require("@next/mdx")({
     },
 });
 module.exports = withMDX({
-    pageExtensions: ["js", "jsx", "tsx", "mdx"],
+    pageExtensions: ["js", "jsx", "tsx", "ts", "mdx"],
     async redirects() {
         return [
             {

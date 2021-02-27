@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserComponent } from "../../../modfed/BrowserComponent";
-import { DemoBlock } from "../../../ui/Type";
+import { BrowserComponent } from "~/modfed/BrowserComponent";
+import { DemoBlock } from "~/ui/Type";
 import { GetStaticProps } from "next";
-import { Gallery } from "../../../browser-components/Gallery";
+import { Gallery } from "~/browser-components/Gallery";
 import Post from "./_data.mdx";
 
 type Props = {

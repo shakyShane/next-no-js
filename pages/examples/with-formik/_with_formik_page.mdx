@@ -1,0 +1,25 @@
+import { Layout } from "~/ui/Layout";
+
+## Get the full Next.js development experience, utilising the React eco-system.
+
+This form _will_ work with or without JavaScript.
+
+It's here to show an example of
+how we can progressively enhance the experience of this page, without having the overhead
+of React controlling every DOM node on the page.
+
+### Example
+
+```
+
+
+export const meta = {
+    title: "With Formik",
+};
+
+export const config = {
+    unstable_runtimeJS: false,
+};
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>;
+```
