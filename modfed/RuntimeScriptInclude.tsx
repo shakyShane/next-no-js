@@ -5,6 +5,7 @@ let manifest;
 let bootstrap;
 let CWD = process.cwd();
 let NEXT_DIR = existsSync(join(CWD, ".next"));
+let MANIFEST_EXISTS = existsSync(join(CWD, ".next", "modfed-entry.json"));
 
 if (process.env.NODE_ENV === "production") {
     try {
@@ -26,7 +27,9 @@ export function RuntimeScriptInclude(props: { html: string }) {
             return (
                 <div
                     dangerouslySetInnerHTML={{
-                        __html: `<!-- missing bootstrap, cwd: ${CWD}, .next exists: ${String(NEXT_DIR)} -->`,
+                        __html: `<!-- missing bootstrap, cwd: ${CWD}, .next exists: ${String(
+                            NEXT_DIR
+                        )}, manifest exists: ${String(MANIFEST_EXISTS)} -->`,
                     }}
                 />
             );
