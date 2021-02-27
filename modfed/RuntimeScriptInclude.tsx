@@ -3,10 +3,11 @@ import { readFileSync } from "fs";
 
 let manifest;
 let bootstrap;
+let CWD = process.cwd();
 
 if (process.env.NODE_ENV === "production") {
     try {
-        const str = readFileSync(join(process.cwd(), ".next", "modfed-entry.json"), "utf8");
+        const str = readFileSync(join(CWD, ".next", "modfed-entry.json"), "utf8");
         manifest = JSON.parse(str);
         const entry = manifest.children.find((child) => child.name === "modfed-entry");
         bootstrap = entry.assetsByChunkName.bootstrap[0];
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 export function RuntimeScriptInclude(props: { html: string }) {
     if (process.env.NODE_ENV === "production") {
         if (!bootstrap) {
-            return <div dangerouslySetInnerHTML={{ __html: `<!-- missing bootstrap -->` }} />;
+            return <div dangerouslySetInnerHTML={{ __html: `<!-- missing bootstrap, cwd: ${CWD} -->` }} />;
         } else {
             if (!props.html.includes("data-modfed-kind")) {
                 return <div dangerouslySetInnerHTML={{ __html: `<!-- no JS components found -->` }} />;
