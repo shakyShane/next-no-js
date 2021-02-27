@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { ButtonHTMLAttributes, PropsWithChildren, useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { obj, validateObject } from "../lib";
 
@@ -17,7 +17,7 @@ type Props =
           kind: "login";
       };
 
-function Header() {
+function Header(props: PropsWithChildren<{ title: string }>) {
     return (
         <div>
             <img
@@ -25,13 +25,8 @@ function Header() {
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                 alt="Workflow"
             />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-                Or{" "}
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                    start your 14-day free trial
-                </a>
-            </p>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">{props.title}</h2>
+            {props.children}
         </div>
     );
 }
@@ -44,14 +39,13 @@ export function FormikForm(props: PropsWithChildren<Props>) {
     };
     if (success) {
         return (
-            <div>
-                <p>Thank you, we're sending to your account...</p>
-                <p>
-                    <button type="button" onClick={() => setSuccess(false)}>
-                        Reset
-                    </button>
-                </p>
-            </div>
+            <Wrap>
+                <Header title="Thanks">
+                    <div className="pt-4">
+                        <Button>Reset</Button>
+                    </div>
+                </Header>
+            </Wrap>
         );
     }
     return (
@@ -90,86 +84,92 @@ export function FormikForm(props: PropsWithChildren<Props>) {
                 return (
                     <Form action="/api/hello" method="POST">
                         <Wrap disabled={isSubmitting}>
-                            <Header />
-                            <div className="rounded-md shadow-sm">
-                                <div>
-                                    <Label htmlFor="email">Email address:</Label>
-                                    {errors["email"] ? (
-                                        <p className="text-sm text-red-900 mb-2">{errors["email"]}</p>
-                                    ) : null}
-                                    <Field
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        placeholder="Email address"
-                                        className={inputClasses(Boolean(errors["email"]))}
-                                        required
-                                    />
+                            <fieldset className="max-w-md w-full space-y-8" disabled={isSubmitting}>
+                                <Header title={"Sign in to your account"}>
+                                    <p className="mt-2 text-center text-gray-500">
+                                        Without JavaScript, this form will post/redirect/validate on the server
+                                    </p>
+                                    <p className="mt-2 text-center text-sm text-indigo-500">
+                                        If JavaScript is enabled however, this form will validate & submit inline.
+                                    </p>
+                                </Header>
+                                <div className="rounded-md shadow-sm">
+                                    <div>
+                                        <Label htmlFor="email">Email address:</Label>
+                                        {errors["email"] ? (
+                                            <p className="text-sm text-red-900 mb-2">{errors["email"]}</p>
+                                        ) : null}
+                                        <Field
+                                            id="email"
+                                            type="email"
+                                            name="email"
+                                            placeholder="Email address"
+                                            className={inputClasses(Boolean(errors["email"]))}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="email">Password:</Label>
+                                        {errors["password"] ? (
+                                            <p className="text-sm text-red-900 mb-2">{errors["password"]}</p>
+                                        ) : null}
+                                        <Field
+                                            id="password"
+                                            name="password"
+                                            type="password"
+                                            autoComplete="current-password"
+                                            required
+                                            className={inputClasses(Boolean(errors["password"]))}
+                                            placeholder="Password"
+                                        />
+                                    </div>
                                 </div>
-                                <div>
-                                    <Label htmlFor="email">Password:</Label>
-                                    {errors["password"] ? (
-                                        <p className="text-sm text-red-900 mb-2">{errors["password"]}</p>
-                                    ) : null}
-                                    <Field
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        required
-                                        className={inputClasses(Boolean(errors["password"]))}
-                                        placeholder="Password"
-                                    />
-                                </div>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <input
-                                        id="remember_me"
-                                        name="remember_me"
-                                        type="checkbox"
-                                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                    />
-                                    <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-                                        Remember me
-                                    </label>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="remember_me"
+                                            name="remember_me"
+                                            type="checkbox"
+                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                        />
+                                        <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+                                            Remember me
+                                        </label>
+                                    </div>
+
+                                    <div className="text-sm">
+                                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                            Forgot your password?
+                                        </a>
+                                    </div>
                                 </div>
 
-                                <div className="text-sm">
-                                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Forgot your password?
-                                    </a>
+                                <div>
+                                    <Button type={"submit"}>
+                                        <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                                            <svg
+                                                className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </span>
+                                        {isSubmitting ? "Please wait..." : "Sign in"}
+                                    </Button>
                                 </div>
-                            </div>
-
-                            <div>
-                                <button
-                                    type="submit"
-                                    className="disabled:opacity-80 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                                        <svg
-                                            className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </span>
-                                    {isSubmitting ? "Please wait..." : "Sign in"}
-                                </button>
-                            </div>
-                            {errorLen > 0 && (
-                                <p className="font-sans text-sm bg-red-100 border-red-300 border-2 p-2 rounded text-red-900">
-                                    Please check the errors above
-                                </p>
-                            )}
+                                {errorLen > 0 && (
+                                    <p className="font-sans text-sm bg-red-100 border-red-300 border-2 p-2 rounded text-red-900">
+                                        Please check the errors above
+                                    </p>
+                                )}
+                            </fieldset>
                         </Wrap>
                     </Form>
                 );
@@ -178,12 +178,10 @@ export function FormikForm(props: PropsWithChildren<Props>) {
     );
 }
 
-function Wrap(props: PropsWithChildren<{ disabled: boolean }>) {
+function Wrap(props: PropsWithChildren<any>) {
     return (
         <div className="flex items-center justify-center bg-white rounded shadow py-12 px-4 sm:px-6 lg:px-8">
-            <fieldset className="max-w-md w-full space-y-8" disabled={props.disabled}>
-                {props.children}
-            </fieldset>
+            {props.children}
         </div>
     );
 }
@@ -200,6 +198,18 @@ function Label(props: PropsWithChildren<any>) {
         <label className="text-sm block my-2" {...rest}>
             {props.children}
         </label>
+    );
+}
+
+function Button(props: PropsWithChildren<ButtonHTMLAttributes<any>>) {
+    return (
+        <button
+            type={props.type}
+            onClick={props.onClick}
+            className="disabled:opacity-80 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+            {props.children}
+        </button>
     );
 }
 
