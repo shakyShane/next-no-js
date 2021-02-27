@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { RuntimeScriptInclude } from "../modfed/RuntimeScriptInclude";
+import { RuntimeScriptInclude } from "~/modfed/RuntimeScriptInclude";
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {

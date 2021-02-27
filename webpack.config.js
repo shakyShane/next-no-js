@@ -16,6 +16,7 @@ const output = {
 const alias = {
     react: "preact/compat",
     "react-dom": "preact/compat",
+    "~": __dirname,
 };
 
 const esbuild = {

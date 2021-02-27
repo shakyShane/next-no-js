@@ -1,15 +1,14 @@
 import { Layout } from "../ui/Layout";
 
-## A static site, with an opt-in 2kb runtime + granular SSR hydration
+## Static/inert DOM by default, opt-in SSR Hydration
 
 ### This page has ZERO JavaScript - as it didn't need any
 
-But in the examples below, JS can be loaded on-demand to either hydrate the components, or just to
-access the markup.
+In the examples below however, JavaScript can be loaded on-demand to
+either hydrate the components with Preact, or just to access the markup.
 
 ### Examples:
 
--   [hydrate a form](/examples/with-form)
 -   [using a form library (Formik)](/examples/with-formik)
 -   [on-demand SSR hydration](/examples/with-js)
 -   [on-demand SSR hydration with `getStaticProps`](/examples/with-data)
@@ -19,6 +18,7 @@ access the markup.
 
 ### Updates:
 
+-   Sat Feb 27th: added Formik + stress test example
 -   Sun Feb 14th: added content-hashes to filenames in on-demand bundles
 -   Sun Feb 14th: added vanilla-js example
 -   Sun Feb 14th: added decentralised versions

@@ -4,6 +4,7 @@ import FormikForm from "~/browser-components/FormikForm";
 import { FieldError } from "~/lib";
 import { BrowserComponent } from "~/modfed/BrowserComponent";
 import Page from "./_with_formik_page.mdx";
+import Md from "./_md_stress.mdx";
 
 type Props =
     | {
@@ -29,12 +30,16 @@ export default function WithForm(props: Props) {
                     <FormikForm {...formProps} />
                 </BrowserComponent>
             </div>
+            <div className="py-4">
+                <hr />
+                <Md />
+            </div>
         </div>
     );
 }
 
 export const config = {
-    unstable_runtimeJS: process.env.NODE_ENV === "development",
+    unstable_runtimeJS: false,
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ req, res }) => {

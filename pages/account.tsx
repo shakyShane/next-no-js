@@ -1,12 +1,7 @@
-import Link from "next/link";
-
 export function Account() {
     return (
         <div>
             <h1>Hi, you're now logged in!</h1>
-            <p>
-                <Link href={"/"}>Back home</Link>
-            </p>
         </div>
     );
 }

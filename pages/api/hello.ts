@@ -28,7 +28,7 @@ export default (req, res) => {
 };
 
 function error(req, res, errors: FieldError[], values: Record<string, string>) {
-    const jsonResp = req.query.resp === "json";
+    const jsonResp = req.headers["content-type"] === "application/json";
     const json = { values, errors };
     if (jsonResp) {
         return res.status(400).json({ kind: "error", values, errors });
@@ -43,7 +43,7 @@ function error(req, res, errors: FieldError[], values: Record<string, string>) {
 }
 
 function redirect(req, res, to) {
-    const jsonResp = req.query.resp === "json";
+    const jsonResp = req.headers["content-type"] === "application/json";
     if (jsonResp) {
         return res.status(200).json({ kind: "redirect", to });
     }

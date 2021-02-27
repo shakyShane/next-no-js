@@ -1,22 +1,33 @@
 import { Layout } from "~/ui/Layout";
 
-## Get the full Next.js development experience, utilising the React eco-system.
+## Get the full Next.js development experience + utilise the entire React eco-system.
 
 This is another example of how we can progressively enhance the experience of
 a component, without having the overhead of React controlling every DOM node on the page.
 
-### Example
+The form below was built with [Formik](https://formik.org/) and it will work with or _without_ JavaScript.
 
-```typescript jsx
-const name = "heer"
-```
+## Try it with JavaScript
+
+Try using `dup@example.com` to see validation occurring
+on the server - which is then displayed to the user without incurring a page reload.
+
+## Try it without JavaScript
+
+Or disable Javacript in your browser to see this form's validation working without
+a single byte of JS.
+
+## Why is this interesting?
+
+Because now we're getting the benefit of a feature-rish form library + the component
+model from React, but without the costs incurred when React has to control the entire page
 
 export const meta = {
     title: "With Formik",
 };
 
 export const config = {
-    unstable_runtimeJS: false,
+    unstable_runtimeJS: true,
 };
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>;
