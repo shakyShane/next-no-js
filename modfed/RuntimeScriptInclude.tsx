@@ -19,25 +19,33 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export function RuntimeScriptInclude(props: { html: string }) {
-    if (process.env.NODE_ENV === "production" && bootstrap && props.html.includes("data-modfed-kind")) {
-        const runtimes = [];
-        if (props.html.includes(`data-modfed-kind="vanilla"`)) {
-            runtimes.push("vanilla");
+    if (process.env.NODE_ENV === "production") {
+        if (!bootstrap) {
+            return <div dangerouslySetInnerHTML={{ __html: `<!-- missing bootstrap -->` }} />;
+        } else {
+            if (!props.html.includes("data-modfed-kind")) {
+                return <div dangerouslySetInnerHTML={{ __html: `<!-- no JS components found -->` }} />;
+            } else {
+                const runtimes = [];
+                if (props.html.includes(`data-modfed-kind="vanilla"`)) {
+                    runtimes.push("vanilla");
+                }
+                if (props.html.includes(`data-modfed-kind="preact"`)) {
+                    runtimes.push("preact");
+                }
+                const json = { runtimes };
+                return (
+                    <>
+                        <script
+                            type={"text/json"}
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
+                            id="bootstrap"
+                        />
+                        <script src={`/_next/static/chunks/modfed/${bootstrap}`} />
+                    </>
+                );
+            }
         }
-        if (props.html.includes(`data-modfed-kind="preact"`)) {
-            runtimes.push("preact");
-        }
-        const json = { runtimes };
-        return (
-            <>
-                <script
-                    type={"text/json"}
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
-                    id="bootstrap"
-                />
-                <script src={`/_next/static/chunks/modfed/${bootstrap}`} />
-            </>
-        );
     }
     console.log("not adding JS");
     return null;
