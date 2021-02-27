@@ -10,7 +10,8 @@
     "next:build": "next build",
     "start": "next start",
     "export": "next export",
-    "clean": "rm -rf .next"
+    "clean": "rm -rf .next",
+    "test": "tsc"
   },
   "author": "shane osboune",
   "dependencies": {

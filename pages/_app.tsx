@@ -4,7 +4,7 @@ import { Nav } from "../ui/Nav";
 import { Footer } from "../ui/Footer";
 import { A, Code, H1, H2, H3, HomeLink, LI, P, UL } from "../ui/Type";
 import { MDXProvider } from "@mdx-js/react";
-import { CodeInPre, Pre } from "../components/CodeBlock";
+import { CodeInPre, Pre } from "../ui/CodeBlock";
 
 function MyApp({ Component, pageProps, ...rest }) {
     return (

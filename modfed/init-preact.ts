@@ -4,6 +4,10 @@ const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
 
 items.forEach((item: HTMLDivElement) => {
     const { modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
+    if (modfedComponent === "MDXCreateElement") {
+        console.log("skipping MDXCreateElement");
+        return;
+    }
     console.log("prev", modfedComponent, modfedHydrated);
     if (modfedHydrated) {
         console.log("skipping item hydration");
@@ -12,7 +16,7 @@ items.forEach((item: HTMLDivElement) => {
     const data = item.parentElement.querySelector(`[data-modfed-data]`);
     const parsed = JSON.parse(data?.textContent ?? "null");
 
-    import(`../components/${modfedComponent}`).then((mod) => {
+    import(`../browser-components/${modfedComponent}`).then((mod) => {
         if (!mod.default) {
             throw new Error(`"default" missing in module ${modfedComponent}`);
         }
