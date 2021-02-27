@@ -1,0 +1,34 @@
+import { Layout } from "../ui/Layout";
+
+## A static site, with an opt-in 2kb runtime + granular SSR hydration
+
+### This page has ZERO JavaScript - as it didn't need any
+
+But in the examples below, JS can be loaded on-demand to either hydrate the components, or just to
+access the markup.
+
+### Examples:
+
+-   [on-demand SSR hydration](/examples/with-js)
+-   [on-demand SSR hydration with `getStaticProps`](/examples/with-data)
+-   [on-demand vanilla JS](/examples/vanilla-js)
+-   [Next.js + Turbo + on-demand SSR hydration](https://next-no-js-cc0feq40w.vercel.app/)
+-   [Examples with decentralised modules (few extra KB, but easier to scale)](https://next-no-js-git-decentralized.shaneosbourne8.vercel.app)
+
+### Updates:
+
+-   Sun Feb 14th: added content-hashes to filenames in on-demand bundles
+-   Sun Feb 14th: added vanilla-js example
+-   Sun Feb 14th: added decentralised versions
+-   Mon Feb 15th: added a component-level hydration example with data
+-   Mon Feb 18th: Next.js + Turbo + on-demand SSR hydration
+
+export const meta = {
+    title: "Next, no js.",
+};
+
+export const config = {
+    unstable_runtimeJS: process.env.NODE_ENV === "development",
+};
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>;

@@ -1,0 +1,38 @@
+import { BrowserComponent } from "../../modfed/BrowserComponent";
+import { Counter } from "../../components/Counter";
+import { DemoBlock } from "../../ui/Type";
+import { Layout } from "../../ui/Layout";
+
+## The initial HTML for this page was rendered at build time with regular React Components
+
+### None of this page's markup with incur any 'hydration' costs at all.
+
+But if any Component is marked as 'vanilla-js', then the 2kb runtime will load on demand, which
+means you can use a regular JS script that allows you to interact with the DOM that was originally
+created on the server.
+
+Just think of how many times you wanted a small interaction to be handled with plain JS, but still
+wanted the React Component model for generating the HTML...
+
+Possibly the best part though, the component used for this 'counter' is the exact same one used in
+the [Preact example](/examples/with-data).
+
+### The timer below was server-side rendered
+
+Once the page is ready, a tiny bundle loads and executes, re-using the DOM
+
+<DemoBlock>
+    <BrowserComponent kind={"vanilla"}>
+        <Counter />
+    </BrowserComponent>
+</DemoBlock>
+
+export const config = {
+    unstable_runtimeJS: false,
+};
+
+export const meta = {
+    title: "Next-no-js, on-demand Vanilla JS",
+};
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>;

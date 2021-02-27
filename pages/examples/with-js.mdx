@@ -1,8 +1,11 @@
 import { BrowserComponent } from "../../modfed/BrowserComponent";
 import { Counter } from "../../components/Counter";
 import { DemoBlock } from "../../ui/Type";
+import { Layout } from "../../ui/Layout";
 
-# On-demand JavaScript runtime + Preact
+export const meta = {
+    title: "On-demand JavaScript runtime + Preact",
+};
 
 ## The initial HTML for this page was rendered at build time - so it works without JavaScript + (really, try it)
 
@@ -21,3 +24,9 @@ Once the page is ready, a tiny bundle loads and hydrates the markup
         <Counter />
     </BrowserComponent>
 </DemoBlock>
+
+export const config = {
+    unstable_runtimeJS: false,
+};
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>;
