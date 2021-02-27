@@ -1,9 +1,10 @@
 import { join } from "path";
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 
 let manifest;
 let bootstrap;
 let CWD = process.cwd();
+let NEXT_DIR = existsSync(join(CWD, ".next"));
 
 if (process.env.NODE_ENV === "production") {
     try {
@@ -22,7 +23,13 @@ if (process.env.NODE_ENV === "production") {
 export function RuntimeScriptInclude(props: { html: string }) {
     if (process.env.NODE_ENV === "production") {
         if (!bootstrap) {
-            return <div dangerouslySetInnerHTML={{ __html: `<!-- missing bootstrap, cwd: ${CWD} -->` }} />;
+            return (
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: `<!-- missing bootstrap, cwd: ${CWD}, .next exists: ${String(NEXT_DIR)} -->`,
+                    }}
+                />
+            );
         } else {
             if (!props.html.includes("data-modfed-kind")) {
                 return <div dangerouslySetInnerHTML={{ __html: `<!-- no JS components found -->` }} />;
