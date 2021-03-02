@@ -17,6 +17,7 @@ const output = {
 const alias = {
     react: "preact/compat",
     "react-dom": "preact/compat",
+    "~": __dirname,
 };
 
 const esbuild = {
@@ -54,17 +55,17 @@ module.exports = () => {
             stats: {},
             plugins: [
                 new ESBuildPlugin(),
-                new webpack.container.ModuleFederationPlugin({
-                    name: "modfed-entry",
-                    // List of remotes with URLs
-                    // remotes: remotes,
-
-                    // list of shared modules from shell
-                    shared: {
-                        react: { singleton: true },
-                        "react-dom": { singleton: true },
-                    },
-                }),
+                // new webpack.container.ModuleFederationPlugin({
+                //     name: "modfed-entry",
+                //     // List of remotes with URLs
+                //     // remotes: remotes,
+                //
+                //     // list of shared modules from shell
+                //     shared: {
+                //         react: { singleton: true },
+                //         "react-dom": { singleton: true },
+                //     },
+                // }),
             ],
         },
     ];

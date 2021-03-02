@@ -35,7 +35,7 @@ export function AddToCart(props: PropsWithChildren<Props>) {
                 onClick={onClick}
                 type="button"
                 disabled={disabled}
-                data-modfed-type="preact"
+                data-modfed-kind="preact"
                 data-modfed-component="AddToCart"
                 data-modfed-self
             >

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { listen, send } from "../modfed/features/cart.types";
+import { listen, send } from "~/modfed/features/cart.types";
 
 export function Minicart() {
     const [open, setOpen] = useState(false);

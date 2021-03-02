@@ -1,15 +1,15 @@
 import "../styles/globals.css";
 import Header from "../ui/Header";
-import Minicart from "../components/Minicart";
-import { Loader } from "../modfed/Loader";
+import Minicart from "../browser-components/Minicart";
+import { BrowserComponent } from "~/modfed/BrowserComponent";
 
 function MyApp({ Component, pageProps }) {
     return (
         <>
             <Header />
-            <Loader modfedType={"preact"} modfedComponent={"Minicart"}>
+            <BrowserComponent>
                 <Minicart />
-            </Loader>
+            </BrowserComponent>
             <main className="my-8">
                 <div className="container mx-auto px-6">
                     <Component {...pageProps} />

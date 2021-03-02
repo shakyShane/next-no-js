@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { send } from "../modfed/features/cart.types";
+import { send } from "~/modfed/features/cart.types";
 
 /**
  * Just the cart icon in the header
@@ -16,7 +16,7 @@ export function CartIcon() {
                 className="text-gray-600 focus:outline-none"
                 onClick={onClick}
                 data-modfed-component={"CartIcon"}
-                data-modfed-type={"preact"}
+                data-modfed-kind={"preact"}
                 data-modfed-self
                 ref={ref}
             >

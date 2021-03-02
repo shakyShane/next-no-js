@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 export function hydrate(item: HTMLElement) {
-    const { modfedId, modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
-    console.log("prev", modfedComponent, modfedHydrated);
+    const { modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
+    console.log("hydrate:element", modfedComponent);
     if (modfedHydrated) {
         console.log("skipping item hydration");
         return;
@@ -11,11 +11,10 @@ export function hydrate(item: HTMLElement) {
     const data = item.parentElement.querySelector(`[data-modfed-data]`);
     const parsed = JSON.parse(data?.textContent ?? "null");
 
-    import(`../components/${modfedComponent}`).then((mod) => {
+    import(`../browser-components/${modfedComponent}`).then((mod) => {
         if (!mod.default) {
             throw new Error(`"default" missing in module ${modfedComponent}`);
         }
-        console.log("hydrating", item);
         item.setAttribute("data-modfed-hydrated", "true");
         if (modfedSelf) {
             console.log("using parent as root");
@@ -28,7 +27,7 @@ export function hydrate(item: HTMLElement) {
 }
 
 export function clear(item: HTMLElement) {
-    const { modfedId, modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
+    const { modfedComponent, modfedSelf, modfedHydrated } = item.dataset;
     if (modfedSelf) {
         console.log("clearing a self-mount", item);
         ReactDOM.render(null, item.parentElement);

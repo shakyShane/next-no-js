@@ -1,4 +1,4 @@
-import { Item } from "~/components/Item";
+import { Item } from "~/browser-components/Item";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { categoryList, categoryList_categoryList, categoryListVariables } from "~/queries/__generated__/categoryList";

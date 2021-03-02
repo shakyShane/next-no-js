@@ -22,7 +22,7 @@ if (hotwire) {
 }
 
 function load() {
-    const items = document.querySelectorAll(`[data-modfed-type="preact"]`);
+    const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
     if (items.length) {
         console.log("trying to attach to %d elements", items.length);
         Promise.all([].map.call(items, (el) => maybeAttach(el)))
@@ -45,7 +45,7 @@ async function maybeAttach(el: HTMLElement) {
 }
 
 function clearAll() {
-    const items = document.querySelectorAll(`[data-modfed-type="preact"]`);
+    const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
     items.forEach((item) => {
         clear(item as HTMLElement);
     });

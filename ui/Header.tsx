@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CartIcon from "../components/CartIcon";
+import CartIcon from "~/browser-components/CartIcon";
 export default function Header() {
     return (
         <header>
@@ -48,8 +48,8 @@ export default function Header() {
                         <Link href={"/"}>
                             <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0">Home</a>
                         </Link>
-                        <Link href="/category">
-                            <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0">Watches</a>
+                        <Link locale={"default"} href="/venia-dresses.html">
+                            <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0">Dresses</a>
                         </Link>
                         <a className="mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0" href="#">
                             Contact
