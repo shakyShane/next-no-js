@@ -10,6 +10,7 @@ type Schema = {
 
 export type Context = {
     open: boolean;
+    items_count: number;
 };
 
 export type PublicContext = Context;
@@ -20,6 +21,7 @@ export const machine = Machine<Context, Schema, CartEvents>(
         initial: "closed",
         context: {
             open: false,
+            items_count: 0,
         },
         states: {
             closed: {
@@ -37,11 +39,11 @@ export const machine = Machine<Context, Schema, CartEvents>(
     },
     {
         actions: {
-            openCart: assign({ open: true }),
-            closeCart: assign({ open: false }),
-            addToCart: (ctx, evt) => {
-                console.log("got an add to cart message", ctx, evt);
-            },
+            openCart: assign({ open: (_) => true }),
+            closeCart: assign({ open: (_) => false }),
+            addToCart: assign({
+                items_count: (_ctx) => (_ctx.items_count += 1),
+            }),
         },
     }
 );

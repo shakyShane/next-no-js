@@ -6,11 +6,11 @@ global();
 const hotwire = true;
 
 if (hotwire) {
-    import("@hotwired/turbo").then(() => {
-        console.log("hotwire loaded");
+    import("@hotwired/turbo").then((mod) => {
+        console.log("hotwire loaded", mod);
         document.addEventListener("turbo:load", function () {
             console.log("turbo:load");
-            load();
+            initPreactElements();
         });
         document.addEventListener("turbo:before-visit", function () {
             console.log("turbo:before-visit");
@@ -18,10 +18,10 @@ if (hotwire) {
         });
     });
 } else {
-    load();
+    initPreactElements();
 }
 
-function load() {
+function initPreactElements() {
     const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
     if (items.length) {
         console.log("trying to attach to %d elements", items.length);
@@ -46,7 +46,7 @@ async function maybeAttach(el: HTMLElement) {
 
 function clearAll() {
     const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
-    items.forEach((item) => {
+    items.forEach((item: HTMLDivElement) => {
         clear(item as HTMLElement);
     });
 }

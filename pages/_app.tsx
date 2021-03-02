@@ -11,9 +11,11 @@ function MyApp({ Component, pageProps }) {
                 <Minicart />
             </BrowserComponent>
             <main className="my-8">
-                <div className="container mx-auto px-6">
-                    <Component {...pageProps} />
-                </div>
+                <turbo-frame id="messages" target="_top">
+                    <div className="container mx-auto px-6">
+                        <Component {...pageProps} />
+                    </div>
+                </turbo-frame>
             </main>
             <footer className="bg-gray-200">
                 <div className="container mx-auto px-6 py-3 flex justify-between items-center">

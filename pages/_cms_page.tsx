@@ -1,5 +1,6 @@
 import invariant from "tiny-invariant";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
+import Link from "next/link";
 
 import { initializeApollo } from "~/lib/apollo.ts";
 import cmsQuery from "~/queries/getCmsPage.graphql";
@@ -9,7 +10,17 @@ export function Product(props: Result) {
     return (
         <div>
             <h1 className="text-4xl">{props.cms.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: props.cms.content }} />
+            {props.cms.content === "--home--" && (
+                <div>
+                    <p>homepage content here</p>
+                    <p>
+                        <Link locale={"default"} href="/venia-dresses.html?page=1">
+                            <a className="underline hover:no-underline">Dresses</a>
+                        </Link>
+                    </p>
+                </div>
+            )}
+            {props.cms.content !== "--home--" && <div dangerouslySetInnerHTML={{ __html: props.cms.content }} />}
         </div>
     );
 }
@@ -30,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async (context): Promise<G
     if (context.query.pathname === "/") {
         const cms: cmsPage_cmsPage = {
             __typename: "CmsPage",
-            content: `<p>homepage content here</p><p><a class="underline hover:no-underline" href='/default/venia-dresses.html?page=1'>Dresses</a></p>`,
+            content: `--home--`,
             content_heading: null,
             meta_description: null,
             meta_keywords: null,
