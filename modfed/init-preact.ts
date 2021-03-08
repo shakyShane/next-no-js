@@ -5,13 +5,14 @@ const oneTimeHydrate = new Map<string, boolean>();
 
 export function hydrate(item: HTMLElement) {
     const { modfedComponent, modfedSelf, turboPermanent } = item.dataset;
+    const { turboPermanent: turboPermanentParent } = item.parentElement.dataset;
 
     if (!modfedComponent) {
         console.log("ere");
         throw new Error("Missing Component name. ");
     }
 
-    if (turboPermanent) {
+    if (turboPermanent || turboPermanentParent) {
         if (oneTimeHydrate.get(modfedComponent) === true) {
             console.log("not re-hydrating a one-watcher");
             return;
@@ -40,8 +41,9 @@ export function hydrate(item: HTMLElement) {
 
 export function clear(item: HTMLElement) {
     const { modfedSelf, turboPermanent } = item.dataset;
+    const { turboPermanent: turboPermanentParent } = item.parentElement.dataset;
 
-    if (turboPermanent) {
+    if (turboPermanent || turboPermanentParent) {
         console.log("refusing to un-mount a permanent element");
         return;
     }

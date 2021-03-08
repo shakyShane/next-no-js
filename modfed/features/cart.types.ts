@@ -40,7 +40,7 @@ export function send(evt: CartEvents, elem: HTMLElement | Document = document) {
 
 export function listen(fn: (context: PublicContext) => any, elem?: HTMLElement) {
     const listener = (evt: CustomEvent<CartStateEvent>) => {
-        console.log("listened to ", evt.detail.payload);
+        // console.log("listened to ", evt.detail.payload);
         fn(evt.detail.payload);
     };
     document.addEventListener(Namespaces.Notify, listener);
