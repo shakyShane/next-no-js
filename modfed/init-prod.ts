@@ -40,7 +40,8 @@ async function maybeAttach(el: HTMLElement) {
         const m = await import("./init-preact");
         m.hydrate(el);
     } catch (e) {
-        console.log("could not hydrate ", el);
+        console.error("[hydration error]", el);
+        console.error(e);
     }
 }
 

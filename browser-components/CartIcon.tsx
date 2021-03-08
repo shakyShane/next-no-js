@@ -18,13 +18,17 @@ export function CartIcon() {
         return () => unlisten();
     }, []);
     return (
-        <div className="mx-4 sm:mx-0">
+        <div
+            className="mx-4 sm:mx-0"
+            id="cart-counter"
+            data-turbo-permanent
+            data-modfed-component="CartIcon"
+            data-modfed-kind={"preact"}
+        >
             <button
                 className="text-gray-600 focus:outline-none relative"
                 onClick={onClick}
                 data-modfed-component={"CartIcon"}
-                data-modfed-kind={"preact"}
-                data-modfed-self
                 ref={ref}
             >
                 <svg
