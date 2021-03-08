@@ -20,6 +20,7 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "paths": {
       "~/*": ["./*"]
     }

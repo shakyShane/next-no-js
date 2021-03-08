@@ -26,6 +26,7 @@ export default function Header() {
                         <a className="w-full text-gray-700 md:text-center text-2xl font-semibold">Brand</a>
                     </Link>
                     <div className="flex items-center justify-end w-full">
+                        <simple-greeting name="kitten" data-turbo-permanent id="cart-counter"></simple-greeting>
                         <CartIcon />
                         <div className="flex sm:hidden">
                             <button

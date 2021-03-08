@@ -1,6 +1,7 @@
 import { machine as cartMachine } from "./features/cart";
 import { interpret } from "xstate";
 import { CartEvents, CartStateEvent, Namespaces } from "./features/cart.types";
+import "~/browser-components/simple-counter";
 
 import { inspect } from "@xstate/inspect";
 
