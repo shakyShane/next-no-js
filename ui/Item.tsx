@@ -1,7 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import { AddToCart } from "./AddToCart";
-import { Product } from "../data/products";
+import { AddToCart } from "~/browser-components/AddToCart";
+import { Product } from "~/data/products";
+import { BrowserComponent } from "~/modfed/BrowserComponent";
 
 type Props = {
     item: Product;
@@ -20,7 +21,9 @@ export function Item(props: Props) {
                 />
             </div>
             <div className="px-5 py-3 relative">
-                <AddToCart sku={props.item.sku} />
+                <BrowserComponent className="absolute right-0 bottom-4">
+                    <AddToCart sku={props.item.sku} />
+                </BrowserComponent>
                 <Link href={`/product?sku=${props.item.sku}`}>
                     <a className="text-gray-700 uppercase block hover:underline">{props.item.name}</a>
                 </Link>

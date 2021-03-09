@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CartIcon from "~/browser-components/CartIcon";
+import { BrowserComponent } from "~/modfed/BrowserComponent";
 export default function Header() {
     return (
         <header>
@@ -26,7 +27,9 @@ export default function Header() {
                         <a className="w-full text-gray-700 md:text-center text-2xl font-semibold">Brand</a>
                     </Link>
                     <div className="flex items-center justify-end w-full">
-                        <CartIcon />
+                        <BrowserComponent className="mx-4 sm:mx-0" turboPermanent>
+                            <CartIcon />
+                        </BrowserComponent>
                         <div className="flex sm:hidden">
                             <button
                                 type="button"

@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Header />
-            <BrowserComponent>
+            <BrowserComponent turboPermanent>
                 <Minicart />
             </BrowserComponent>
             <main className="my-8">

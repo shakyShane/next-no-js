@@ -1,43 +1,70 @@
-import React, { Children, PropsWithChildren } from "react";
+import React, { Children, PropsWithChildren, HTMLAttributes } from "react";
 
 type LoaderProps = {
+    turboPermanent?: boolean;
     kind?: "vanilla" | "preact";
     mdxType?: string;
+    id?: string;
     originalType?: any;
 };
 
-export function BrowserComponent(props: PropsWithChildren<LoaderProps>) {
-    const { kind = "preact" } = props;
+export function BrowserComponent(props: PropsWithChildren<LoaderProps & HTMLAttributes<any>>) {
+    const { kind = "preact", turboPermanent = undefined, children, id, ...otherDivAttrs } = props;
     return Children.map(props.children, (child) => {
         if (!React.isValidElement(child)) {
             throw new Error("cannot work with none-valid child");
         }
         // @ts-ignore
-        let n = child.type.name || child.type.displayName;
+        let componentName = child.type.name || child.type.displayName;
         // handle MDX wrappers
         if (child.props.mdxType && child.props.originalType) {
-            n = child.props.originalType.name || child.props.originalType.displayName;
+            componentName = child.props.originalType.name || child.props.originalType.displayName;
         }
-        if (!n) {
+        if (!componentName) {
             throw new Error("cannot infer name, please use displayName on the exported component");
         }
         const { children, mdxType, originalType, ...rest } = child.props;
-        let asString = "";
+        const hasData = Object.keys(rest).length > 0;
+        const elementId = id || "modfed-id-" + componentName;
+
+        const output = (
+            <div
+                {...otherDivAttrs}
+                id={elementId}
+                data-modfed-kind={kind}
+                data-modfed-component={kind === "preact" && componentName}
+                data-turbo-permanent={turboPermanent}
+            >
+                {props.children}
+            </div>
+        );
+        if (!hasData) {
+            return output;
+        }
+
+        let dataAsString = "";
         try {
-            asString = JSON.stringify(rest);
+            dataAsString = JSON.stringify(rest);
         } catch (e) {
             throw new Error("could not serialise props");
         }
+
         return (
             <>
                 <script
                     type={"text/json"}
+                    data-modfed-data={elementId}
                     dangerouslySetInnerHTML={{
-                        __html: asString.replace(/</g, "\\u003c"),
+                        __html: dataAsString.replace(/</g, "\\u003c"),
                     }}
-                    data-modfed-data
                 />
-                <div data-modfed-kind={kind} data-modfed-component={kind === "preact" && n}>
+                <div
+                    {...otherDivAttrs}
+                    id={elementId}
+                    data-modfed-kind={kind}
+                    data-modfed-component={kind === "preact" && componentName}
+                    data-turbo-permanent={turboPermanent}
+                >
                     {props.children}
                 </div>
             </>
