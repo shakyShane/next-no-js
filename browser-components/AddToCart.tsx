@@ -15,7 +15,7 @@ export function AddToCart(props: PropsWithChildren<Props>) {
             bubbles: true,
             detail: { type: "cart:add", payload: { sku: props.sku, qty: 1 } },
         });
-        ref.current.dispatchEvent(event);
+        ref.current?.dispatchEvent(event);
     }, []);
     useEffect(() => {
         return () => {

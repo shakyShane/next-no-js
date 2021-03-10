@@ -1,0 +1,22 @@
+query global($id: Int = 2) {
+    storeConfig: storeConfig {
+        category_url_suffix
+        product_url_suffix
+    }
+    menu: category(id: $id) {
+        children {
+            name
+            url_path
+            url_key
+            image
+            id
+            children {
+                name
+                url_path
+                url_key
+                image
+                id
+            }
+        }
+    }
+}

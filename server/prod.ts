@@ -1,30 +1,30 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync } from "fs";
 
-import envalid from 'envalid';
+import envalid from "envalid";
 
-import { init } from './index';
+import { init } from "./index";
 
 /**
  * Validate that the server is being started
  */
-const releaseStages = ['default', 'local', 'develop', 'staging', 'staging-local', 'master'];
+const releaseStages = ["default", "local", "develop", "staging", "staging-local", "master"];
 
 const env = envalid.cleanEnv(process.env, {
-    NODE_ENV: envalid.str({ default: 'development' }),
+    NODE_ENV: envalid.str({ default: "development" }),
     SERVE_LOCAL: envalid.bool({ default: false }),
-    BACKEND_URL: envalid.str({ desc: 'Backend' }),
+    BACKEND_URL: envalid.str({ desc: "Backend" }),
     PORT: envalid.num({
-        desc: 'The port the PWA will listen on',
+        desc: "The port the PWA will listen on",
         default: 8080,
     }),
     RELEASE_STAGE: envalid.str({
-        desc: `release stage is required, one of '${releaseStages.join(', ')}'`,
+        desc: `release stage is required, one of '${releaseStages.join(", ")}'`,
         choices: releaseStages,
     }),
 });
 
 // eslint-disable-next-line no-console
-console.log('Validated env for ', env.RELEASE_STAGE);
+console.log("Validated env for ", env.RELEASE_STAGE);
 
 /**
  *
@@ -47,6 +47,6 @@ console.log('Validated env for ', env.RELEASE_STAGE);
  * NextJS application in the normal way.
  * -------------------------------------------------
  */
-writeFileSync('.env.local', [`RELEASE_STAGE=${env.RELEASE_STAGE}`, `BACKEND_URL=${env.BACKEND_URL}`].join('\n'));
+writeFileSync(".env.local", [`RELEASE_STAGE=${env.RELEASE_STAGE}`, `BACKEND_URL=${env.BACKEND_URL}`].join("\n"));
 
 init();

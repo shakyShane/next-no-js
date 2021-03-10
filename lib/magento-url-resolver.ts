@@ -6,7 +6,7 @@ const known = {
     // "/": "/",
 };
 
-async function resolver(pathname, client = initializeApollo(null)) {
+async function resolver(pathname, client = initializeApollo({})) {
     pathname = pathname.replace(/^\/default/, "");
     if (known[pathname]) {
         return { newUrl: known[pathname], parsedDestination: { query: {} } };

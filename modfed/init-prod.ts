@@ -47,7 +47,7 @@ async function maybeAttach(el: HTMLElement) {
 
 function clearAll() {
     const items = document.querySelectorAll(`[data-modfed-kind="preact"]`);
-    items.forEach((item: HTMLDivElement) => {
+    items.forEach((item: Element) => {
         clear(item as HTMLElement);
     });
 }

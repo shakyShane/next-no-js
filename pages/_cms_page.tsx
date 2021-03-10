@@ -20,7 +20,7 @@ export function Product(props: Result) {
                     </p>
                 </div>
             )}
-            {props.cms.content !== "--home--" && <div dangerouslySetInnerHTML={{ __html: props.cms.content }} />}
+            {props.cms.content !== "--home--" && <div dangerouslySetInnerHTML={{ __html: props.cms.content ?? "" }} />}
         </div>
     );
 }
@@ -31,7 +31,7 @@ type Result = {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context): Promise<GetServerSidePropsResult<Result>> => {
-    const client = initializeApollo(null, context);
+    const client = initializeApollo({}, context);
     invariant(context.query.id, "query.id missing for cms page");
     const res = await client.query<cmsPage, cmsPageVariables>({
         query: cmsQuery,

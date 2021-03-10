@@ -19,7 +19,7 @@ export function hydrate(item: HTMLElement) {
         oneTimeHydrate.set(modfedComponent, true);
     }
 
-    const data = item.parentElement.querySelector(`[data-modfed-data="${item.id}"]`);
+    const data = item.parentElement?.querySelector(`[data-modfed-data="${item.id}"]`);
     const parsed = JSON.parse(data?.textContent ?? "null");
 
     import(`../browser-components/${modfedComponent}`).then((mod) => {

@@ -43,6 +43,8 @@ export function listen(fn: (context: PublicContext) => any, elem?: HTMLElement) 
         // console.log("listened to ", evt.detail.payload);
         fn(evt.detail.payload);
     };
+    // @ts-ignore
     document.addEventListener(Namespaces.Notify, listener);
+    // @ts-ignore
     return () => document.removeEventListener(Namespaces.Notify, listener);
 }

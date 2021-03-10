@@ -8,9 +8,6 @@ import { listen, send } from "~/modfed/features/cart.types";
 export function CartIcon() {
     const ref = useRef<HTMLButtonElement>(null);
     const [cartCount, setCartCount] = useState(0);
-    const onClick = useCallback(() => {
-        send({ type: "minicart:open" }, ref.current);
-    }, []);
     useEffect(() => {
         const unlisten = listen((state) => {
             setCartCount(state.items_count);
@@ -18,7 +15,11 @@ export function CartIcon() {
         return () => unlisten();
     }, []);
     return (
-        <button className="text-gray-600 focus:outline-none relative" onClick={onClick} ref={ref}>
+        <button
+            className="text-gray-600 focus:outline-none relative"
+            onClick={() => send({ type: "minicart:open" })}
+            ref={ref}
+        >
             <svg
                 className="h-5 w-5"
                 fill="none"

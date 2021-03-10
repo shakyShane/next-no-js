@@ -3,7 +3,7 @@ export function RuntimeScriptInclude(props: { html: string }) {
         return <script src={`http://localhost:8080/webpack/bootstrap.js`} />;
     }
     if (process.env.NODE_ENV === "production" && process.env.BOOTSTRAP) {
-        const runtimes = [];
+        const runtimes: string[] = [];
         if (props.html.includes(`data-modfed-kind="vanilla"`)) {
             runtimes.push("vanilla");
         }

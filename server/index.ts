@@ -28,11 +28,15 @@ export function init() {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { pathname, query } = parsedUrl;
 
-            if (pathname.startsWith("/_next") || pathname.startsWith("/__nextjs") || pathname.startsWith("/webpack")) {
+            if (
+                pathname?.startsWith("/_next") ||
+                pathname?.startsWith("/__nextjs") ||
+                pathname?.startsWith("/webpack")
+            ) {
                 return next();
             }
 
-            if (ignore.some((ig) => pathname.indexOf(ig) === 0)) {
+            if (ignore.some((ig) => pathname?.indexOf(ig) === 0)) {
                 return next();
             }
 

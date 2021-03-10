@@ -21,7 +21,7 @@ export function Item(props: Props) {
                 />
             </div>
             <div className="px-5 py-3 relative">
-                <BrowserComponent className="absolute right-0 bottom-4">
+                <BrowserComponent className="absolute right-0 bottom-4" id={`CartIcon-${props.item.sku}`}>
                     <AddToCart sku={props.item.sku} />
                 </BrowserComponent>
                 <Link href={`/product?sku=${props.item.sku}`}>

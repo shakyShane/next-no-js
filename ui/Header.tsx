@@ -1,6 +1,8 @@
 import Link from "next/link";
 import CartIcon from "~/browser-components/CartIcon";
 import { BrowserComponent } from "~/modfed/BrowserComponent";
+import { MenuItem } from "~/browser-components/MenuItem";
+
 export default function Header() {
     return (
         <header>
@@ -30,20 +32,9 @@ export default function Header() {
                         <BrowserComponent className="mx-4 sm:mx-0" turboPermanent>
                             <CartIcon />
                         </BrowserComponent>
-                        <div className="flex sm:hidden">
-                            <button
-                                type="button"
-                                className="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500"
-                                aria-label="toggle menu"
-                            >
-                                <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
+                        <BrowserComponent className="flex sm:hidden">
+                            <MenuItem />
+                        </BrowserComponent>
                     </div>
                 </div>
                 <nav className="sm:flex sm:justify-center sm:items-center mt-4 hidden">

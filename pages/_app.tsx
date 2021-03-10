@@ -2,13 +2,26 @@ import "../styles/globals.css";
 import Header from "../ui/Header";
 import Minicart from "../browser-components/Minicart";
 import { BrowserComponent } from "~/modfed/BrowserComponent";
+import { initializeApollo } from "~/lib/apollo";
+import globalQuery from "~/queries/global.graphql";
+import { global, global_menu, globalVariables, global_storeConfig } from "~/queries/__generated__/global";
+import App, { AppContext, AppProps } from "next/app";
+import Nav from "~/browser-components/Nav";
 
-function MyApp({ Component, pageProps }) {
+type Props = {
+    menu: global_menu | null;
+    storeConfig: global_storeConfig | null;
+};
+
+function MyApp({ Component, pageProps, menu, storeConfig }: AppProps & Props) {
     return (
         <>
             <Header />
             <BrowserComponent turboPermanent>
                 <Minicart />
+            </BrowserComponent>
+            <BrowserComponent turboPermanent>
+                <Nav menu={menu} storeConfig={storeConfig} />
             </BrowserComponent>
             <main className="my-8">
                 <turbo-frame id="messages" target="_top">
@@ -28,5 +41,19 @@ function MyApp({ Component, pageProps }) {
         </>
     );
 }
+
+MyApp.getInitialProps = async (context: AppContext) => {
+    const appProps = await App.getInitialProps(context);
+    const client = initializeApollo({}, context as any);
+    const res = await client.query<global, globalVariables>({
+        query: globalQuery,
+        variables: { id: 2 },
+    });
+    return {
+        ...appProps,
+        menu: res.data.menu,
+        storeConfig: res.data.storeConfig,
+    };
+};
 
 export default MyApp;
