@@ -3,6 +3,8 @@ import { clear } from "./init-preact";
 
 global();
 
+declare var clickRecorder: any;
+
 const hotwire = true;
 
 if (hotwire) {
@@ -10,7 +12,7 @@ if (hotwire) {
         console.log("hotwire loaded", mod);
         document.addEventListener("turbo:load", function () {
             console.log("turbo:load");
-            initPreactElements();
+            setTimeout(initPreactElements, 5000);
         });
         document.addEventListener("turbo:before-visit", function () {
             console.log("turbo:before-visit");
@@ -28,6 +30,9 @@ function initPreactElements() {
         Promise.all([].map.call(items, (el) => maybeAttach(el)))
             .then((res) => {
                 console.log("All done!");
+                setTimeout(() => {
+                    clickRecorder.replay();
+                }, 100); // todo: wtf is this 100ms for ?
             })
             .catch((e) => {
                 console.log("could not dynamically attach", e);
@@ -38,7 +43,7 @@ function initPreactElements() {
 async function maybeAttach(el: HTMLElement) {
     try {
         const m = await import("./init-preact");
-        m.hydrate(el);
+        await m.hydrate(el);
     } catch (e) {
         console.error("[hydration error]", el);
         console.error(e);

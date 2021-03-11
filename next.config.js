@@ -7,6 +7,13 @@ module.exports = {
             test: /\.(graphql|gql)$/,
             loader: "graphql-tag/loader",
         });
+        config.module.rules.push({
+            test: /\.raw\.js$/,
+            loader: "raw-loader",
+            options: {
+                esModule: false,
+            },
+        });
         return config;
     },
     rewrites() {

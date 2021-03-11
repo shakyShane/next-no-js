@@ -22,7 +22,7 @@ export function hydrate(item: HTMLElement) {
     const data = item.parentElement?.querySelector(`[data-modfed-data="${item.id}"]`);
     const parsed = JSON.parse(data?.textContent ?? "null");
 
-    import(`../browser-components/${modfedComponent}`).then((mod) => {
+    return import(`../browser-components/${modfedComponent}`).then((mod) => {
         if (!mod.default) {
             throw new Error(`"default" missing in module ${modfedComponent}`);
         }

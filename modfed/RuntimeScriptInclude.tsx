@@ -1,6 +1,11 @@
 export function RuntimeScriptInclude(props: { html: string }) {
     if (process.env.NODE_ENV === "development") {
-        return <script src={`http://localhost:8080/webpack/bootstrap.js`} />;
+        return (
+            <>
+                <ClickRecorder />
+                <script src={`http://localhost:8080/webpack/bootstrap.js`} />
+            </>
+        );
     }
     if (process.env.NODE_ENV === "production" && process.env.BOOTSTRAP) {
         const runtimes: string[] = [];
@@ -13,6 +18,7 @@ export function RuntimeScriptInclude(props: { html: string }) {
         const json = { runtimes };
         return (
             <>
+                <ClickRecorder />
                 <script
                     type="text/json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(json).replace(/</g, "\\u003c") }}
@@ -23,4 +29,14 @@ export function RuntimeScriptInclude(props: { html: string }) {
         );
     }
     return null;
+}
+
+function ClickRecorder() {
+    return (
+        <script
+            dangerouslySetInnerHTML={{
+                __html: require("./recorder.raw.js"),
+            }}
+        />
+    );
 }
