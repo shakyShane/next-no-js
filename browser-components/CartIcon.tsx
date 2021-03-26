@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { listen, send } from "~/modfed/features/cart.types";
+import { cartListen, send } from "~/modfed/features/cart.types";
 
 /**
  * Just the cart icon in the header
@@ -9,7 +9,7 @@ export function CartIcon() {
     const ref = useRef<HTMLButtonElement>(null);
     const [cartCount, setCartCount] = useState(0);
     useEffect(() => {
-        const unlisten = listen((state) => {
+        const unlisten = cartListen((value, state) => {
             setCartCount(state.items_count);
         });
         return () => unlisten();

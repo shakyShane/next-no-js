@@ -1,5 +1,6 @@
 import { assign, Machine } from "xstate";
 import { CartEvents } from "./cart.types";
+import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
     states: {
@@ -14,8 +15,9 @@ export type Context = {
 };
 
 export type PublicContext = Context;
+export type CartValue = keyof Schema["states"];
 
-export const machine = Machine<Context, Schema, CartEvents>(
+export const cartMachine = Machine<Context, Schema, CartEvents>(
     {
         id: "cart",
         initial: "closed",
@@ -31,6 +33,9 @@ export const machine = Machine<Context, Schema, CartEvents>(
                 },
             },
             open: {
+                invoke: {
+                    src: "escapeKey",
+                },
                 on: {
                     "minicart:close": { target: "closed", actions: "closeCart" },
                 },
@@ -44,6 +49,13 @@ export const machine = Machine<Context, Schema, CartEvents>(
             addToCart: assign({
                 items_count: (_ctx) => (_ctx.items_count += 1),
             }),
+        },
+        services: {
+            // prettier-ignore
+            escapeKey: compose([
+        onEscapeKey({ type: "minicart:close" }),
+        onTurboNav({ type: "minicart:close" })
+      ]),
         },
     }
 );

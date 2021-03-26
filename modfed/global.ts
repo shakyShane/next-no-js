@@ -1,10 +1,11 @@
-import { machine as cartMachine } from "./features/cart";
+import { cartMachine as cartMachine } from "./features/cart.machine";
 import { interpret } from "xstate";
-import { CartEvents, CartStateEvent, Namespaces } from "./features/cart.types";
-import { AppEvents, AppNamespaces, AppStateEvent } from "./features/app.types";
+import { CartNameSpaces } from "./features/cart.types";
 
 import { inspect } from "@xstate/inspect";
 import { appMachine } from "~/modfed/features/app.machine";
+import { AppNamespaces } from "~/modfed/features/app.dom";
+import { GLOBAL_PROXY } from "~/modfed/constants";
 
 if (process.env.NODE_ENV === "development") {
     inspect({
@@ -12,33 +13,48 @@ if (process.env.NODE_ENV === "development") {
     });
 }
 
-const cartService = interpret(cartMachine, { devTools: true })
-    .onTransition((t) => {
-        console.log("next", { ...t.context });
-        const state = new CustomEvent<CartStateEvent>(Namespaces.Notify, {
-            detail: { type: "cart:state", payload: { ...t.context } },
-        });
-        document.dispatchEvent(state);
-    })
-    .start();
-
-const appService = interpret(appMachine, { devTools: true })
-    .onTransition((t) => {
-        console.log("next", { ...t.context });
-        const state = new CustomEvent<AppStateEvent>(AppNamespaces.Notify, {
-            detail: { type: "app:state", payload: { value: t.value, context: t.context } },
-        });
-        document.dispatchEvent(state);
-    })
-    .start();
-
 export function global() {
-    // @ts-ignore
-    document.addEventListener(Namespaces.Send, (evt: CustomEvent<CartEvents>) => {
-        cartService.send(evt.detail);
+    window[GLOBAL_PROXY] = {};
+
+    register(appMachine, {
+        storeName: AppNamespaces.Store,
+        namespace: AppNamespaces.Notify,
+        send: AppNamespaces.Send,
     });
+    register(cartMachine, {
+        storeName: CartNameSpaces.Store,
+        namespace: CartNameSpaces.Notify,
+        send: CartNameSpaces.Send,
+    });
+}
+
+interface RegisterOpts {
+    storeName: string;
+    namespace: string;
+    send: string;
+}
+
+function register(machine, opts: RegisterOpts) {
+    window[GLOBAL_PROXY][opts.storeName] = {
+        value: machine.initialState.value,
+        context: machine.initialState.context,
+    };
+    const srv = interpret(machine, { devTools: true })
+        .onTransition((t) => {
+            window[GLOBAL_PROXY][opts.storeName].value = t.value;
+            window[GLOBAL_PROXY][opts.storeName].context = { ...t.context };
+            const appEvent = new CustomEvent(opts.namespace, {
+                detail: {
+                    type: opts.storeName,
+                    payload: window[GLOBAL_PROXY][opts.storeName],
+                },
+            });
+            document.dispatchEvent(appEvent);
+        })
+        .start();
+
     // @ts-ignore
-    document.addEventListener(AppNamespaces.Send, (evt: CustomEvent<AppEvents>) => {
-        appService.send(evt.detail);
+    document.addEventListener(opts.send, (evt: CustomEvent<any>) => {
+        srv.send(evt.detail);
     });
 }

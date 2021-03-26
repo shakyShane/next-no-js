@@ -1,5 +1,6 @@
 import { Machine } from "xstate";
-import { AppEvents } from "./app.types";
+import { AppEvents, appSend } from "./app.dom";
+import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
     states: {
@@ -10,7 +11,7 @@ type Schema = {
 
 export type Context = {};
 export type PublicContext = Context;
-export type States = keyof Schema["states"];
+export type AppValue = keyof Schema["states"];
 
 export const appMachine = Machine<Context, Schema, AppEvents>(
     {
@@ -24,6 +25,9 @@ export const appMachine = Machine<Context, Schema, AppEvents>(
                 },
             },
             open: {
+                invoke: {
+                    src: "escapeKey",
+                },
                 on: {
                     "nav:close": "closed",
                 },
@@ -32,5 +36,12 @@ export const appMachine = Machine<Context, Schema, AppEvents>(
     },
     {
         actions: {},
+        services: {
+            // prettier-ignore
+            escapeKey: compose([
+        onEscapeKey({ type: "nav:close" }),
+        onTurboNav({ type: "nav:close" })
+      ]),
+        },
     }
 );

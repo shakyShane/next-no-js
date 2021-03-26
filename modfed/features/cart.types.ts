@@ -1,13 +1,19 @@
-import { PublicContext } from "./cart";
+import { CartValue, PublicContext } from "./cart.machine";
+import { AppValue } from "~/modfed/features/app.machine";
+import { GLOBAL_PROXY } from "~/modfed/constants";
 
-export enum Namespaces {
+export enum CartNameSpaces {
+    Store = "cart:state",
     Send = "@machine.cart",
     Notify = "@machine.cart.notify",
 }
 
 export interface CartStateEvent {
     type: "cart:state";
-    payload: PublicContext;
+    payload: {
+        value: AppValue;
+        context: PublicContext;
+    };
 }
 
 export interface CartAddEvent {
@@ -31,20 +37,26 @@ export type CartEvents =
 
 export function send(evt: CartEvents, elem: HTMLElement | Document = document) {
     elem.dispatchEvent(
-        new CustomEvent(Namespaces.Send, {
+        new CustomEvent(CartNameSpaces.Send, {
             detail: evt,
             bubbles: true,
         })
     );
 }
 
-export function listen(fn: (context: PublicContext) => any, elem?: HTMLElement) {
+export function cartListen(fn: (value: CartValue, context: PublicContext) => any, elem?: HTMLElement) {
     const listener = (evt: CustomEvent<CartStateEvent>) => {
-        // console.log("listened to ", evt.detail.payload);
-        fn(evt.detail.payload);
+        fn(evt.detail.payload.value, evt.detail.payload.context);
     };
     // @ts-ignore
-    document.addEventListener(Namespaces.Notify, listener);
+    document.addEventListener(CartNameSpaces.Notify, listener);
     // @ts-ignore
-    return () => document.removeEventListener(Namespaces.Notify, listener);
+    return () => document.removeEventListener(CartNameSpaces.Notify, listener);
+}
+
+export function initialCart(): { value: CartValue; context: PublicContext } {
+    if (typeof window !== "undefined" && window[GLOBAL_PROXY]) {
+        return window[GLOBAL_PROXY][CartNameSpaces.Store];
+    }
+    return { value: "closed", context: { open: false, items_count: 0 } };
 }

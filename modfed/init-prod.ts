@@ -12,7 +12,8 @@ if (hotwire) {
         console.log("hotwire loaded", mod);
         document.addEventListener("turbo:load", function () {
             console.log("turbo:load");
-            setTimeout(initPreactElements, 5000);
+            // setTimeout(initPreactElements, 5000);
+            initPreactElements();
         });
         document.addEventListener("turbo:before-visit", function () {
             console.log("turbo:before-visit");

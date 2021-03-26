@@ -1,5 +1,5 @@
 import React from "react";
-import { appSend } from "~/modfed/features/app.types";
+import { appSend } from "~/modfed/features/app.dom";
 
 export function MenuItem() {
     return (
