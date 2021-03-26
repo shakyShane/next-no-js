@@ -4,7 +4,7 @@ import { CartEvents, CartStateEvent, Namespaces } from "./features/cart.types";
 import { AppEvents, AppNamespaces, AppStateEvent } from "./features/app.types";
 
 import { inspect } from "@xstate/inspect";
-import { appMachine } from "~/modfed/features/app";
+import { appMachine } from "~/modfed/features/app.machine";
 
 if (process.env.NODE_ENV === "development") {
     inspect({
@@ -26,7 +26,7 @@ const appService = interpret(appMachine, { devTools: true })
     .onTransition((t) => {
         console.log("next", { ...t.context });
         const state = new CustomEvent<AppStateEvent>(AppNamespaces.Notify, {
-            detail: { type: "app:state", payload: { ...t.context } },
+            detail: { type: "app:state", payload: { value: t.value, context: t.context } },
         });
         document.dispatchEvent(state);
     })

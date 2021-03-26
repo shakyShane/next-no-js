@@ -15,7 +15,12 @@ export function Nav(props: Props) {
     const posClasses = open ? "translate-x-0 ease-out transition duration-300" : "translate-x-full ease-in";
     useEffect(() => {
         const unlisten = appListen((state) => {
-            setOpen(state.open);
+            switch (state) {
+                case "open":
+                    return setOpen(true);
+                case "closed":
+                    return setOpen(false);
+            }
         });
         return () => {
             unlisten();

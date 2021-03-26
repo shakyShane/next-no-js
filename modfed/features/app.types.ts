@@ -1,4 +1,4 @@
-import { PublicContext } from "./app";
+import { PublicContext, States } from "./app.machine";
 
 export enum AppNamespaces {
     Send = "@machine.app",
@@ -7,7 +7,10 @@ export enum AppNamespaces {
 
 export interface AppStateEvent {
     type: "app:state";
-    payload: PublicContext;
+    payload: {
+        value: States;
+        context: PublicContext;
+    };
 }
 
 export interface AppOpenEvent {
@@ -32,10 +35,10 @@ export function appSend(evt: AppEvents, elem: HTMLElement | Document = document)
     );
 }
 
-export function appListen(fn: (context: PublicContext) => any, elem?: HTMLElement) {
+export function appListen(fn: (value: States, context: PublicContext) => any, elem?: HTMLElement) {
     const listener = (evt: CustomEvent<AppStateEvent>) => {
         // console.log("listened to ", evt.detail.payload);
-        fn(evt.detail.payload);
+        fn(evt.detail.payload.value, evt.detail.payload.context);
     };
     // @ts-ignore
     document.addEventListener(AppNamespaces.Notify, listener);

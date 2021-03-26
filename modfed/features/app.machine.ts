@@ -1,4 +1,4 @@
-import { assign, Machine } from "xstate";
+import { Machine } from "xstate";
 import { AppEvents } from "./app.types";
 
 type Schema = {
@@ -8,36 +8,29 @@ type Schema = {
     };
 };
 
-export type Context = {
-    open: boolean;
-};
-
+export type Context = {};
 export type PublicContext = Context;
+export type States = keyof Schema["states"];
 
 export const appMachine = Machine<Context, Schema, AppEvents>(
     {
         id: "app",
         initial: "closed",
-        context: {
-            open: false,
-        },
+        context: {},
         states: {
             closed: {
                 on: {
-                    "nav:open": { target: "open", actions: "openNav" },
+                    "nav:open": "open",
                 },
             },
             open: {
                 on: {
-                    "nav:close": { target: "closed", actions: "closeNav" },
+                    "nav:close": "closed",
                 },
             },
         },
     },
     {
-        actions: {
-            openNav: assign({ open: (_) => true }),
-            closeNav: assign({ open: (_) => false }),
-        },
+        actions: {},
     }
 );
