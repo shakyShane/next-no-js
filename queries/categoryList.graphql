@@ -22,6 +22,9 @@ query categoryList($id: Int = 2115) {
         }
         products {
             items {
+                url_key
+                url_suffix
+                canonical_url
                 name
                 sku
                 image {
