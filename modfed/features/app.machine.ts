@@ -1,5 +1,5 @@
-import { Machine } from "xstate";
-import { AppEvents, appSend } from "./app.dom";
+import { Interpreter, Machine } from "xstate";
+import { AppEvents } from "./app.dom";
 import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
@@ -12,10 +12,12 @@ type Schema = {
 export type Context = {};
 export type PublicContext = Context;
 export type AppValue = keyof Schema["states"];
+export type Send = Interpreter<Context, Schema, AppEvents>["send"];
+export const MACHINE_ID = "app";
 
 export const appMachine = Machine<Context, Schema, AppEvents>(
     {
-        id: "app",
+        id: MACHINE_ID,
         initial: "closed",
         context: {},
         states: {

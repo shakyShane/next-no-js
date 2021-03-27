@@ -1,19 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { cartListen, send } from "~/modfed/features/cart.types";
+import { useCartService } from "~/modfed/features/cart.dom";
 
 export function Minicart() {
-    const [open, setOpen] = useState(false);
+    const [{ context }, send] = useCartService();
     const baseClasses =
         "z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transform overflow-y-auto bg-white border-l-2 border-gray-300";
-    const posClasses = open ? "translate-x-0 ease-out transition duration-300" : "translate-x-full ease-in";
-    useEffect(() => {
-        const unlisten = cartListen((value, state) => {
-            setOpen(state.open);
-        });
-        return () => {
-            unlisten();
-        };
-    }, []);
+    const posClasses = context.open ? "translate-x-0 ease-out transition duration-300" : "translate-x-full ease-in";
     const close = useCallback(() => {
         send({ type: "minicart:close" });
     }, []);

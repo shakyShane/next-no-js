@@ -1,5 +1,5 @@
-import { assign, Machine } from "xstate";
-import { CartEvents } from "./cart.types";
+import { assign, Interpreter, Machine } from "xstate";
+import { CartEvents } from "./cart.dom";
 import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
@@ -16,10 +16,12 @@ export type Context = {
 
 export type PublicContext = Context;
 export type CartValue = keyof Schema["states"];
+export type Send = Interpreter<Context, Schema, CartEvents>["send"];
+export const MACHINE_ID = "cart";
 
 export const cartMachine = Machine<Context, Schema, CartEvents>(
     {
-        id: "cart",
+        id: MACHINE_ID,
         initial: "closed",
         context: {
             open: false,

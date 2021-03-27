@@ -1,13 +1,14 @@
 import React from "react";
-import { appSend } from "~/modfed/features/app.dom";
+import { useAppSend } from "~/modfed/features/app.dom";
 
 export function MenuItem() {
+    const send = useAppSend();
     return (
         <button
             type="button"
             className="text-gray-600 hover:text-gray-500 focus:outline-none focus:text-gray-500"
             aria-label="toggle menu"
-            onClick={() => appSend({ type: "nav:open" })}
+            onClick={() => send({ type: "nav:open" })}
         >
             <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
                 <path

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useCallback, useRef } from "react";
-import { CartEvents, CartNameSpaces } from "../modfed/features/cart.types";
+import { useCartSend } from "~/modfed/features/cart.dom";
 
 interface Props {
     sku: string;
@@ -10,18 +10,10 @@ export function AddToCart(props: PropsWithChildren<Props>) {
     const { children, ...rest } = props;
     const ref = useRef<HTMLButtonElement>(null);
     const [disabled, setDisabled] = useState(false);
+    const send = useCartSend();
     const onClick = useCallback(() => {
-        const event = new CustomEvent<CartEvents>(CartNameSpaces.Send, {
-            bubbles: true,
-            detail: { type: "cart:add", payload: { sku: props.sku, qty: 1 } },
-        });
-        ref.current?.dispatchEvent(event);
-    }, []);
-    useEffect(() => {
-        return () => {
-            console.log("teardown");
-        };
-    }, []);
+        send({ type: "cart:add", payload: { sku: props.sku, qty: 1 } });
+    }, [props.sku]);
     return (
         <button
             className="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"

@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { appListen, appSend, initial } from "~/modfed/features/app.dom";
+import React from "react";
 import { global_menu, global_storeConfig } from "~/queries/__generated__/global";
-import { AppValue } from "~/modfed/features/app.machine";
+import { useAppService } from "~/modfed/features/app.dom";
 
 type Props = {
     menu: global_menu | null;
@@ -10,7 +9,7 @@ type Props = {
 
 export function Nav(props: Props) {
     const { storeConfig, menu } = props;
-    const value = useAppValue();
+    const [{ value }, send] = useAppService();
     const baseClasses =
         "z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transform overflow-y-auto bg-white border-l-2 border-gray-300";
     const posClasses = value === "open" ? "translate-x-0 ease-out transition duration-300" : "translate-x-full ease-in";
@@ -18,7 +17,7 @@ export function Nav(props: Props) {
         <div className={baseClasses + " " + posClasses}>
             <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-medium text-gray-700">Main Menu</h3>
-                <button className="text-gray-600 focus:outline-none" onClick={() => appSend({ type: "nav:close" })}>
+                <button className="text-gray-600 focus:outline-none" onClick={() => send({ type: "nav:close" })}>
                     <svg
                         className="h-5 w-5"
                         fill="none"
@@ -53,16 +52,3 @@ export function Nav(props: Props) {
 }
 
 export default Nav;
-
-function useAppValue(): AppValue {
-    const [state, setState] = useState(() => initial().value);
-    useEffect(() => {
-        const unlisten = appListen((value) => {
-            setState(value);
-        });
-        return () => {
-            unlisten();
-        };
-    }, []);
-    return state;
-}
