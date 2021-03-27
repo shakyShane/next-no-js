@@ -29,6 +29,10 @@ module.exports = {
                 source: "/rest/:pathname*",
                 destination: new URL("rest", process.env.BACKEND_URL).href,
             },
+            {
+                source: "/media/:pathname*",
+                destination: new URL("media", process.env.BACKEND_URL).href,
+            },
         ];
     },
     i18n: {

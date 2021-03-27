@@ -7,6 +7,14 @@
 // GraphQL query operation: productDetail
 // ====================================================
 
+export interface productDetail_productDetail_items_description {
+  __typename: "ComplexTextValue";
+  /**
+   * HTML format
+   */
+  html: string;
+}
+
 export interface productDetail_productDetail_items_price_range_minimum_price_regular_price {
   __typename: "Money";
   /**
@@ -65,17 +73,17 @@ export interface productDetail_productDetail_items_media_gallery {
    * The URL of the product image or video.
    */
   url: string | null;
+  /**
+   * The media item's position after it has been sorted.
+   */
+  position: number | null;
+  /**
+   * Whether the image is hidden from view.
+   */
+  disabled: boolean | null;
 }
 
 export interface productDetail_productDetail_items_short_description {
-  __typename: "ComplexTextValue";
-  /**
-   * HTML format
-   */
-  html: string;
-}
-
-export interface productDetail_productDetail_items_description {
   __typename: "ComplexTextValue";
   /**
    * HTML format
@@ -102,6 +110,10 @@ export interface productDetail_productDetail_items {
    */
   special_price: number | null;
   /**
+   * Detailed information about the product. The value can include simple HTML tags.
+   */
+  description: productDetail_productDetail_items_description | null;
+  /**
    * A PriceRange object, indicating the range of prices for the product
    */
   price_range: productDetail_productDetail_items_price_range;
@@ -121,10 +133,6 @@ export interface productDetail_productDetail_items {
    * A short description of the product. Its use depends on the theme.
    */
   short_description: productDetail_productDetail_items_short_description | null;
-  /**
-   * Detailed information about the product. The value can include simple HTML tags.
-   */
-  description: productDetail_productDetail_items_description | null;
   /**
    * A string that is displayed in the title bar and tab of the browser and in search results lists.
    */

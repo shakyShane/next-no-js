@@ -1,5 +1,5 @@
 query productDetail(
-    $urlKey: String = "black-house-log-holder-1159513"
+    $urlKey: String = "stretch-belt-with-leather-clasp"
 ) {
     productDetail: products(filter: { url_key: { eq: $urlKey } }) {
         items {
@@ -8,6 +8,7 @@ query productDetail(
             id
             name
             special_price
+            description { html }
             price_range {
                 minimum_price {
                     regular_price {
@@ -26,6 +27,8 @@ query productDetail(
             media_gallery {
                 label
                 url
+                position
+                disabled
             }
             short_description {
                 html

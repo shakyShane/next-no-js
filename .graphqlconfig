@@ -1,10 +1,10 @@
 {
   "name": "Untitled GraphQL Schema",
-  "schemaPath": "schema.json",
+  "schemaPath": "queries/__global_generated__/schema.json",
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "http://localhost:8080/graphql",
+        "url": "https://venia.magento.com/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },

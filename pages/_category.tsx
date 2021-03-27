@@ -24,6 +24,7 @@ export default function Category(props: Props) {
             <Link href={"/"}>Home</Link>
             <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
                 {props.category?.products?.items?.map((prod, index) => {
+                    const productUrl = `/${prod?.url_key}${prod?.url_suffix}`;
                     return (
                         <Item
                             item={{
@@ -31,6 +32,7 @@ export default function Category(props: Props) {
                                 name: prod?.name || "n/a",
                                 price: String(prod?.price_range.minimum_price.regular_price.value),
                                 sku: prod?.sku || "n/a",
+                                url: productUrl,
                             }}
                             index={index}
                             key={index}

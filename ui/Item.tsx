@@ -24,7 +24,7 @@ export function Item(props: Props) {
                 <BrowserComponent className="absolute right-0 bottom-4" id={`CartIcon-${props.item.sku}`}>
                     <AddToCart sku={props.item.sku} />
                 </BrowserComponent>
-                <Link href={`/product?sku=${props.item.sku}`}>
+                <Link href={props.item.url} locale={"default"}>
                     <a className="text-gray-700 uppercase block hover:underline">{props.item.name}</a>
                 </Link>
                 <span className="text-gray-500 mt-2">${props.item.price}</span>
