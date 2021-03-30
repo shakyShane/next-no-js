@@ -1,3 +1,5 @@
 .next
 out
 .run
+queries/__generated__
+queries/__global_generated__

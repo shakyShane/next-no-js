@@ -37,7 +37,7 @@ export default function PDP(props: Props) {
                 <hr className="my-3" />
                 <BrowserComponent>
                     <Qty />
-                    <Options />
+                    {/*<Options />*/}
                     <ATC />
                 </BrowserComponent>
             </div>
