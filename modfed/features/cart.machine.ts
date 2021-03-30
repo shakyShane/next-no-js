@@ -30,8 +30,8 @@ export const cartMachine = Machine<Context, Schema, CartEvents>(
         states: {
             closed: {
                 on: {
-                    "cart:add": { actions: "addToCart" },
                     "minicart:open": { target: "open", actions: "openCart" },
+                    "minicart:items_count:updated": { actions: "updateItemsCount" },
                 },
             },
             open: {
@@ -48,8 +48,13 @@ export const cartMachine = Machine<Context, Schema, CartEvents>(
         actions: {
             openCart: assign({ open: (_) => true }),
             closeCart: assign({ open: (_) => false }),
-            addToCart: assign({
-                items_count: (_ctx) => (_ctx.items_count += 1),
+            updateItemsCount: assign({
+                items_count: (ctx, evt) => {
+                    if (evt.type === "minicart:items_count:updated") {
+                        return evt.payload.new_items_count;
+                    }
+                    return ctx.items_count;
+                },
             }),
         },
         services: {

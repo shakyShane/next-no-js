@@ -1,0 +1,17 @@
+mutation addSimple($id: String!, $items: [SimpleProductCartItemInput]!) {
+    addSimpleProductsToCart(input: {cart_id: $id, cart_items: $items}) {
+        cart {
+            items {
+                uid
+                product {sku}
+                quantity
+                prices {
+                    row_total_including_tax {
+                        value
+                        currency
+                    }
+                }
+            }
+        }
+    }
+}

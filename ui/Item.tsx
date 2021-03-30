@@ -21,9 +21,9 @@ export function Item(props: Props) {
                 />
             </div>
             <div className="px-5 py-3 relative">
-                <BrowserComponent className="absolute right-0 bottom-4" id={`CartIcon-${props.item.sku}`}>
-                    <AddToCart sku={props.item.sku} />
-                </BrowserComponent>
+                {/*<BrowserComponent className="absolute right-0 bottom-4" id={`CartIcon-${props.item.sku}`}>*/}
+                {/*    <AddToCart sku={props.item.sku} />*/}
+                {/*</BrowserComponent>*/}
                 <Link href={props.item.url} locale={"default"}>
                     <a className="text-gray-700 uppercase block hover:underline">{props.item.name}</a>
                 </Link>

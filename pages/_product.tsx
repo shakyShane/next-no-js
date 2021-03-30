@@ -7,10 +7,8 @@ import {
     productDetailVariables,
 } from "~/queries/__generated__/productDetail";
 import productDetailQuery from "~/queries/productDetail.graphql";
-import { Qty } from "~/browser-components/Qty";
-import { Options } from "~/browser-components/Options";
-import { ATC } from "~/browser-components/ATC";
 import { BrowserComponent } from "~/modfed/BrowserComponent";
+import { Actions } from "~/browser-components/Actions";
 
 interface Props {
     product: productDetail_productDetail_items;
@@ -36,9 +34,7 @@ export default function PDP(props: Props) {
                 <span className="text-gray-500 mt-3">${product.price_range?.minimum_price?.regular_price?.value}</span>
                 <hr className="my-3" />
                 <BrowserComponent>
-                    <Qty />
-                    {/*<Options />*/}
-                    <ATC />
+                    <Actions sku={product.sku || "unknown"} />
                 </BrowserComponent>
             </div>
         </div>

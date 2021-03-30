@@ -12,7 +12,7 @@ export function AddToCart(props: PropsWithChildren<Props>) {
     const [disabled, setDisabled] = useState(false);
     const send = useCartSend();
     const onClick = useCallback(() => {
-        send({ type: "cart:add", payload: { sku: props.sku, qty: 1 } });
+        console.log("todo - inline add");
     }, [props.sku]);
     return (
         <button

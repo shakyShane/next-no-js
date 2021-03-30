@@ -49,14 +49,14 @@ export function useService(serviceName: string) {
         if (typeof window === "undefined") {
             return { value: "idle", context: {} };
         }
-        if (window[GLOBAL_PROXY] && window[GLOBAL_PROXY][serviceName]) {
+        if (window[GLOBAL_PROXY]?.[serviceName]) {
             return window[GLOBAL_PROXY][serviceName].initial;
         }
         return { value: "idle", context: {} };
     });
     const send: Send = useCallback((evt) => {
         if (typeof window === "undefined") return;
-        if (window[GLOBAL_PROXY][serviceName]) {
+        if (window[GLOBAL_PROXY]?.[serviceName]) {
             return (window[GLOBAL_PROXY][serviceName] as any).srv.send(evt);
         } else {
             console.log("not found for app:state");
@@ -65,7 +65,7 @@ export function useService(serviceName: string) {
     useEffect(() => {
         let unsub;
         if (typeof window === "undefined") return;
-        if (window[GLOBAL_PROXY][serviceName]) {
+        if (window[GLOBAL_PROXY]?.[serviceName]) {
             unsub = (window[GLOBAL_PROXY][serviceName] as any).srv.subscribe((evt) => {
                 setState({ value: evt.value, context: evt.context });
             });

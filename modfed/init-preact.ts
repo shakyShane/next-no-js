@@ -23,11 +23,16 @@ export function hydrate(item: HTMLElement) {
     const parsed = JSON.parse(data?.textContent ?? "null");
 
     return import(`../browser-components/${modfedComponent}`).then((mod) => {
-        if (!mod.default) {
-            throw new Error(`"default" missing in module ${modfedComponent}`);
+        let exported = mod.default;
+        if (!exported) {
+            console.log("'default' export absent");
+            exported = mod[modfedComponent];
         }
-        console.log("ReactDOM.hydrate");
-        ReactDOM.hydrate(React.createElement(mod.default, parsed), item);
+        if (!exported) {
+            throw new Error(`"default" & "named" export missing in module ${modfedComponent}`);
+        }
+        console.log("ReactDOM.hydrate", modfedComponent);
+        ReactDOM.hydrate(React.createElement(exported, parsed), item);
     });
 }
 

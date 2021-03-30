@@ -12,7 +12,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export function global() {
-    console.log("ere");
     window[GLOBAL_PROXY] = {};
 
     register(appMachine);
@@ -25,14 +24,25 @@ interface RegisterOpts {
     send: string;
 }
 
-function register(machine: StateMachine<any, any, any>) {
+function register(machine: StateMachine<any, any, any>, refs: any[] = []) {
+    if (window[GLOBAL_PROXY]?.[machine.id]) {
+        console.warn("BAIL - machine with id `%s` already registered", machine.id);
+        return;
+    }
     window[GLOBAL_PROXY][machine.id] = {
         initial: {
             value: machine.initialState.value,
             context: machine.initialState.context,
         },
     };
-    const srv = interpret(machine, { devTools: true })
+    const lazyRef = (refName: string) => {
+        const match = window[GLOBAL_PROXY]?.[refName];
+        if (!match) {
+            throw new Error(`Service missing... ${refName}`);
+        }
+        return match.srv;
+    };
+    const srv = interpret(machine.withContext({ ...machine.context, ref: lazyRef }), { devTools: true })
         .onChange((context) => {
             console.log("context change", context);
         })
@@ -40,3 +50,6 @@ function register(machine: StateMachine<any, any, any>) {
         .start();
     window[GLOBAL_PROXY][machine.id].srv = srv;
 }
+
+// @ts-ignore
+window.__unstable_register = register;
