@@ -12,6 +12,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export function global() {
+    console.log("ere");
     window[GLOBAL_PROXY] = {};
 
     register(appMachine);

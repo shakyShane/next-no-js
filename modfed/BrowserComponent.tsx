@@ -35,7 +35,7 @@ export function BrowserComponent(props: PropsWithChildren<LoaderProps & HTMLAttr
                 data-modfed-component={kind === "preact" && componentName}
                 data-turbo-permanent={turboPermanent}
             >
-                {props.children}
+                {child}
             </div>
         );
         if (!hasData) {

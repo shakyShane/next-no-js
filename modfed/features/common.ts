@@ -49,7 +49,7 @@ export function useService(serviceName: string) {
         if (typeof window === "undefined") {
             return { value: "idle", context: {} };
         }
-        if (window[GLOBAL_PROXY][serviceName]) {
+        if (window[GLOBAL_PROXY] && window[GLOBAL_PROXY][serviceName]) {
             return window[GLOBAL_PROXY][serviceName].initial;
         }
         return { value: "idle", context: {} };

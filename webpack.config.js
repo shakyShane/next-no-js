@@ -54,7 +54,6 @@ module.exports = () => {
             },
             stats: {},
             plugins: [
-                new ESBuildPlugin(),
                 new webpack.DefinePlugin({
                     "process.env.TURBO_LINKS": Boolean(process.env.TURBO_LINKS),
                 }),

@@ -39,4 +39,7 @@ module.exports = {
         locales: ["default"],
         defaultLocale: "default",
     },
+    future: {
+        webpack5: true,
+    },
 };

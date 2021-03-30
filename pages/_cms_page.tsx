@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
 import Link from "next/link";
 
-import { initializeApollo } from "~/lib/apollo.ts";
+import { initializeApollo } from "~/lib/apollo";
 import cmsQuery from "~/queries/getCmsPage.graphql";
 import { cmsPage, cmsPage_cmsPage, cmsPageVariables } from "~/queries/__generated__/cmsPage";
 
