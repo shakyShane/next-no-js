@@ -7,6 +7,7 @@ declare global {
     namespace JSX {
         interface IntrinsicElements {
             "turbo-frame": any; // The 'any' just for testing purposes
+            "mad-notes": HTMLAttributes & { component: string };
         }
     }
 }
@@ -14,5 +15,6 @@ declare global {
 declare namespace JSX {
     interface IntrinsicElements {
         "turbo-frame": HTMLAttributes;
+        "mad-notes": HTMLAttributes & { component: string };
     }
 }

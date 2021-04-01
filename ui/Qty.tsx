@@ -8,7 +8,6 @@ type Props = {
 };
 
 export function Qty(props: Props) {
-    console.log([props.qty]);
     return (
         <div className="mt-2">
             <label className="text-gray-700 text-sm" htmlFor="count">

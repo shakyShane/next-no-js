@@ -4,36 +4,36 @@ import ReactDOM from "react-dom";
 const oneTimeHydrate = new Map<string, boolean>();
 
 export function hydrate(item: HTMLElement) {
-    const { modfedComponent, turboPermanent } = item.dataset;
-
-    if (!modfedComponent) {
-        console.log("ere");
-        throw new Error("Missing Component name. ");
-    }
-
-    if (turboPermanent) {
-        if (oneTimeHydrate.get(modfedComponent) === true) {
-            console.log("not re-hydrating a one-watcher");
-            return;
-        }
-        oneTimeHydrate.set(modfedComponent, true);
-    }
-
-    const data = item.parentElement?.querySelector(`[data-modfed-data="${item.id}"]`);
-    const parsed = JSON.parse(data?.textContent ?? "null");
-
-    return import(`../browser-components/${modfedComponent}`).then((mod) => {
-        let exported = mod.default;
-        if (!exported) {
-            console.log("'default' export absent");
-            exported = mod[modfedComponent];
-        }
-        if (!exported) {
-            throw new Error(`"default" & "named" export missing in module ${modfedComponent}`);
-        }
-        console.log("ReactDOM.hydrate", modfedComponent);
-        ReactDOM.hydrate(React.createElement(exported, parsed), item);
-    });
+    // const { modfedComponent, turboPermanent } = item.dataset;
+    //
+    // if (!modfedComponent) {
+    //     console.log("ere");
+    //     throw new Error("Missing Component name. ");
+    // }
+    //
+    // if (turboPermanent) {
+    //     if (oneTimeHydrate.get(modfedComponent) === true) {
+    //         console.log("not re-hydrating a one-watcher");
+    //         return;
+    //     }
+    //     oneTimeHydrate.set(modfedComponent, true);
+    // }
+    //
+    // const data = item.parentElement?.querySelector(`[data-modfed-data="${item.id}"]`);
+    // const parsed = JSON.parse(data?.textContent ?? "null");
+    //
+    // return import(`../browser-components/${modfedComponent}`).then((mod) => {
+    //     let exported = mod.default;
+    //     if (!exported) {
+    //         console.log("'default' export absent");
+    //         exported = mod[modfedComponent];
+    //     }
+    //     if (!exported) {
+    //         throw new Error(`"default" & "named" export missing in module ${modfedComponent}`);
+    //     }
+    //     console.log("ReactDOM.hydrate", modfedComponent);
+    //     ReactDOM.hydrate(React.createElement(exported, parsed), item);
+    // });
 }
 
 export function clear(item: HTMLElement) {

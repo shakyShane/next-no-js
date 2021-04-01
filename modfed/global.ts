@@ -1,3 +1,4 @@
+import "./wc";
 import { cartMachine as cartMachine } from "./features/cart.machine";
 import { interpret, StateMachine } from "xstate";
 
@@ -10,6 +11,9 @@ if (process.env.NODE_ENV === "development") {
         iframe: false,
     });
 }
+
+// @ts-ignore
+window.__unstable_register = register;
 
 export function global() {
     window[GLOBAL_PROXY] = {};
@@ -50,6 +54,3 @@ function register(machine: StateMachine<any, any, any>, refs: any[] = []) {
         .start();
     window[GLOBAL_PROXY][machine.id].srv = srv;
 }
-
-// @ts-ignore
-window.__unstable_register = register;

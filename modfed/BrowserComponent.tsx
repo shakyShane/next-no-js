@@ -24,33 +24,17 @@ export function BrowserComponent(props: PropsWithChildren<LoaderProps & HTMLAttr
             throw new Error("cannot infer name, please use displayName on the exported component");
         }
         const { children, mdxType, originalType, ...rest } = child.props;
-        const hasData = Object.keys(rest).length > 0;
         const elementId = id || "modfed-id-" + componentName;
-
-        const output = (
-            <div
-                {...otherDivAttrs}
-                id={elementId}
-                data-modfed-kind={kind}
-                data-modfed-component={kind === "preact" && componentName}
-                data-turbo-permanent={turboPermanent}
-            >
-                {child}
-            </div>
-        );
-        if (!hasData) {
-            return output;
-        }
 
         let dataAsString = "";
         try {
-            dataAsString = JSON.stringify(rest);
+            dataAsString = JSON.stringify(rest || '""');
         } catch (e) {
             throw new Error("could not serialise props");
         }
 
         return (
-            <>
+            <mad-notes data-component={kind === "preact" && componentName} data-turbo-permanent={turboPermanent}>
                 <script
                     type={"text/json"}
                     data-modfed-data={elementId}
@@ -58,16 +42,10 @@ export function BrowserComponent(props: PropsWithChildren<LoaderProps & HTMLAttr
                         __html: dataAsString.replace(/</g, "\\u003c"),
                     }}
                 />
-                <div
-                    {...otherDivAttrs}
-                    id={elementId}
-                    data-modfed-kind={kind}
-                    data-modfed-component={kind === "preact" && componentName}
-                    data-turbo-permanent={turboPermanent}
-                >
+                <div data-inner data-turbo-permanent={turboPermanent}>
                     {props.children}
                 </div>
-            </>
+            </mad-notes>
         );
     }) as any;
 }
