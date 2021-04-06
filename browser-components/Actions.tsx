@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { Qty } from "~/ui/Qty";
 import { ATC } from "~/ui/ATC";
-import { useCartService } from "~/modfed/features/cart.dom";
 import { cartAddMachine } from "~/modfed/features/cart-add.machine";
-import { useCartAddService } from "~/modfed/features/cart-add.dom";
+import { useMachineWithRef } from "~/modfed/global";
+import { useCartService } from "~/modfed/features/cart.dom";
 
 type Props = {
     sku: string;
@@ -11,14 +11,14 @@ type Props = {
 
 export function ActionsInner(props: Props) {
     const [qty, setQty] = useState(1);
-    const [{ context }] = useCartService();
-    const [{ value }, send] = useCartAddService();
+    const [{ context: cartContext }] = useCartService();
+    const [{ value }, sendAdd] = useMachineWithRef(cartAddMachine);
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault();
             if (qty > 0) {
                 console.log("Adding above", qty, props.sku);
-                send({ type: "cart-add:simple", payload: { sku: props.sku, qty } });
+                sendAdd({ type: "cart-add:simple", payload: { sku: props.sku, qty } });
             } else {
                 console.log("not adding as below 1");
             }
@@ -37,7 +37,7 @@ export function ActionsInner(props: Props) {
 
                 {/*<Options />*/}
                 <ATC>
-                    {value === "adding" ? "wait..." : "Add to Cart"} ({context.items_count})
+                    {value === "adding" ? "wait..." : "Add to Cart"} ({cartContext.items_count})
                 </ATC>
             </fieldset>
         </form>
@@ -47,8 +47,6 @@ export function ActionsInner(props: Props) {
 export function Actions(props: PropsWithChildren<any>) {
     const [ready, setReady] = useState(false);
     useEffect(() => {
-        // @ts-ignore
-        window.__unstable_register(cartAddMachine);
         setReady(true);
     }, []);
     return ready ? <ActionsInner {...props} /> : (null as any);

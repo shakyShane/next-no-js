@@ -38,7 +38,7 @@ export function init() {
             const parsedUrl = parse(req.url, true);
 
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { pathname, query } = parsedUrl;
+            const { pathname, query: _ } = parsedUrl;
 
             if (
                 pathname?.startsWith("/_next") ||

@@ -1,4 +1,4 @@
-import React, { Children, PropsWithChildren, HTMLAttributes, useState, useEffect } from "react";
+import React, { Children, PropsWithChildren, HTMLAttributes } from "react";
 
 type LoaderProps = {
     turboPermanent?: boolean;

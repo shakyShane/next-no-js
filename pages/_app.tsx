@@ -13,7 +13,7 @@ type Props = {
     storeConfig: global_storeConfig | null;
 };
 
-function MyApp({ Component, pageProps, menu, storeConfig }: AppProps & Props) {
+function MyApp({ Component, pageProps, menu }: AppProps & Props) {
     return (
         <>
             <Header />
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps, menu, storeConfig }: AppProps & Props) {
                 <Minicart />
             </BrowserComponent>
             <BrowserComponent turboPermanent>
-                <Nav menu={menu} storeConfig={storeConfig} />
+                <Nav menu={menu} />
             </BrowserComponent>
             <main className="my-8">
                 <turbo-frame id="messages" target="_top">

@@ -1,16 +1,13 @@
-import { assign, Interpreter, Machine, send } from "xstate";
-import { CartEvents } from "./cart.dom";
-import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
+import { Interpreter, Machine, send, StateSchema } from "xstate";
 import { CartAddEvents } from "~/modfed/features/cart-add.dom";
-import { GLOBAL_PROXY } from "~/modfed/constants";
 import { pure } from "xstate/lib/actions";
 
 type Schema = {
     states: {
-        idle: Record<string, any>;
-        adding: Record<string, any>;
-        added: Record<string, any>;
-        errored: Record<string, any>;
+        idle: StateSchema;
+        adding: StateSchema;
+        added: StateSchema;
+        errored: StateSchema;
     };
 };
 
@@ -18,12 +15,11 @@ export type Context = {
     ref: (address: string) => Interpreter<any, any>;
 };
 
-export type PublicContext = Context;
 export type CartAddValue = keyof Schema["states"];
 export type Send = Interpreter<Context, Schema, CartAddEvents>["send"];
 export const MACHINE_ID = "cart-add";
 
-export const cartAddMachine = Machine<Context, Schema, CartAddEvents>(
+export const cartAddMachine = Machine<Context, CartAddEvents>(
     {
         id: MACHINE_ID,
         initial: "idle",

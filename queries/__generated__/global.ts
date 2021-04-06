@@ -33,6 +33,10 @@ export interface global_menu_children_children {
    * The url key assigned to the category.
    */
   url_key: string | null;
+  /**
+   * The part of the category URL that is appended after the url key
+   */
+  url_suffix: string | null;
   image: string | null;
   /**
    * An ID that uniquely identifies the category.
@@ -54,6 +58,10 @@ export interface global_menu_children {
    * The url key assigned to the category.
    */
   url_key: string | null;
+  /**
+   * The part of the category URL that is appended after the url key
+   */
+  url_suffix: string | null;
   image: string | null;
   /**
    * An ID that uniquely identifies the category.

@@ -1,4 +1,4 @@
-import { AppValue, PublicContext, Send } from "~/modfed/features/app.machine";
+import { Send } from "~/modfed/features/app.machine";
 import { useCallback, useEffect, useState } from "react";
 import { GLOBAL_PROXY } from "~/modfed/constants";
 import { Interpreter } from "xstate";

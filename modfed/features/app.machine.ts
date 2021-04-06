@@ -1,25 +1,29 @@
-import { Interpreter, Machine } from "xstate";
+import { Interpreter, Machine, StateSchema } from "xstate";
 import { AppEvents } from "./app.dom";
 import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
     states: {
-        closed: Record<string, any>;
-        open: Record<string, any>;
+        closed: StateSchema;
+        open: StateSchema;
     };
 };
 
-export type Context = {};
+export type Context = {
+    id: string;
+};
 export type PublicContext = Context;
 export type AppValue = keyof Schema["states"];
-export type Send = Interpreter<Context, Schema, AppEvents>["send"];
+export type Send = Interpreter<Context, any, AppEvents>["send"];
 export const MACHINE_ID = "app";
 
 export const appMachine = Machine<Context, Schema, AppEvents>(
     {
         id: MACHINE_ID,
         initial: "closed",
-        context: {},
+        context: {
+            id: MACHINE_ID,
+        },
         states: {
             closed: {
                 on: {

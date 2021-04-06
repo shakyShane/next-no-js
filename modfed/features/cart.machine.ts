@@ -1,11 +1,11 @@
-import { assign, Interpreter, Machine } from "xstate";
+import { assign, Interpreter, Machine, StateSchema } from "xstate";
 import { CartEvents } from "./cart.dom";
 import { compose, onEscapeKey, onTurboNav } from "~/modfed/features/common";
 
 type Schema = {
     states: {
-        closed: Record<string, any>;
-        open: Record<string, any>;
+        closed: StateSchema;
+        open: StateSchema;
     };
 };
 
@@ -14,8 +14,6 @@ export type Context = {
     items_count: number;
 };
 
-export type PublicContext = Context;
-export type CartValue = keyof Schema["states"];
 export type Send = Interpreter<Context, Schema, CartEvents>["send"];
 export const MACHINE_ID = "cart";
 
@@ -58,11 +56,7 @@ export const cartMachine = Machine<Context, Schema, CartEvents>(
             }),
         },
         services: {
-            // prettier-ignore
-            escapeKey: compose([
-        onEscapeKey({ type: "minicart:close" }),
-        onTurboNav({ type: "minicart:close" })
-      ]),
+            escapeKey: compose([onEscapeKey({ type: "minicart:close" }), onTurboNav({ type: "minicart:close" })]),
         },
     }
 );

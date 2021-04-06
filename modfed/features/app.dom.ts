@@ -1,5 +1,5 @@
-import { AppValue, MACHINE_ID, PublicContext, Send } from "~/modfed/features/app.machine";
-import { useSend, useService } from "~/modfed/features/common";
+import { appMachine } from "~/modfed/features/app.machine";
+import { useGlobalService } from "~/modfed/global";
 
 export interface AppOpenEvent {
     type: "nav:open";
@@ -14,10 +14,6 @@ export type AppEvents =
     | AppOpenEvent
     | AppCloseEvent
 
-export function useAppSend(): Send {
-    return useSend(MACHINE_ID);
-}
-
-export function useAppService(): [{ value: AppValue; context: PublicContext }, Send] {
-    return useService(MACHINE_ID) as [{ value: AppValue; context: PublicContext }, Send];
+export function useAppService() {
+    return useGlobalService(appMachine);
 }

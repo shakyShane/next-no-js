@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CartIcon from "~/browser-components/CartIcon";
 import { BrowserComponent } from "~/modfed/BrowserComponent";
-import { MenuItem } from "~/browser-components/MenuItem";
+import { MenuButton } from "~/browser-components/MenuButton";
 
 export default function Header() {
     return (
@@ -33,7 +33,7 @@ export default function Header() {
                             <CartIcon />
                         </BrowserComponent>
                         <BrowserComponent className="flex sm:hidden">
-                            <MenuItem />
+                            <MenuButton />
                         </BrowserComponent>
                     </div>
                 </div>

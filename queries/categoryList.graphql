@@ -44,6 +44,7 @@ query categoryList($id: Int = 2115) {
             name
             url_path
             url_key
+            url_suffix
             image
             id
         }

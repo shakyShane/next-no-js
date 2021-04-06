@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useCartService } from "~/modfed/features/cart.dom";
 
 /**
@@ -8,7 +8,6 @@ import { useCartService } from "~/modfed/features/cart.dom";
 export function CartIcon() {
     const ref = useRef<HTMLButtonElement>(null);
     const [{ context }, send] = useCartService();
-    console.log(context.items_count);
 
     return (
         <button

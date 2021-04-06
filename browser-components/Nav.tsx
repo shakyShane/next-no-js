@@ -1,14 +1,13 @@
-import React from "react";
-import { global_menu, global_storeConfig } from "~/queries/__generated__/global";
+import React, { PropsWithChildren } from "react";
+import { global_menu } from "~/queries/__generated__/global";
 import { useAppService } from "~/modfed/features/app.dom";
 
 type Props = {
     menu: global_menu | null;
-    storeConfig: global_storeConfig | null;
 };
 
 export function Nav(props: Props) {
-    const { storeConfig, menu } = props;
+    const { menu } = props;
     const [{ value }, send] = useAppService();
     const baseClasses =
         "z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transform overflow-y-auto bg-white border-l-2 border-gray-300";
@@ -32,22 +31,42 @@ export function Nav(props: Props) {
                 </button>
             </div>
             <hr className="my-3" />
-            <div className="mt-6">
-                <ul>
-                    {menu?.children?.map((child) => {
-                        let link = "/default/" + child?.url_key;
-                        if (storeConfig?.category_url_suffix) {
-                            link += storeConfig?.category_url_suffix;
-                        }
-                        return (
-                            <li key={child?.id}>
-                                <a href={link}>{child?.name}</a>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+            <div className="mt-6">{menu?.children && <NavItems items={menu.children} level={0} />}</div>
         </div>
+    );
+}
+
+type ItemProps = {
+    name: string | null;
+    url_key: string | null;
+    url_path: string | null;
+    url_suffix: string | null;
+    id: number | null;
+    children?: (ItemProps | null)[] | null;
+};
+
+function NavItems<I extends ItemProps>(props: PropsWithChildren<{ items: (I | null)[]; level: number }>) {
+    if (props.items.length === 0) return null;
+    return (
+        <ul className={props.level === 1 ? "pl-4" : ""}>
+            {props.items.map((item) => {
+                if (!item) return null;
+                let link = "/default/" + item.url_path;
+                if (item.url_suffix) {
+                    link += item.url_suffix;
+                }
+                return (
+                    <li key={item.id}>
+                        <p>
+                            <a href={link}>{item.name}</a>
+                        </p>
+                        {Array.isArray(item.children) && item.children.length > 0 && (
+                            <NavItems items={item.children} level={props.level + 1} />
+                        )}
+                    </li>
+                );
+            })}
+        </ul>
     );
 }
 

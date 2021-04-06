@@ -1,18 +1,15 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { useCallback, useRef } from "react";
-import { useCartSend } from "~/modfed/features/cart.dom";
 
 interface Props {
     sku: string;
 }
 
 export function AddToCart(props: PropsWithChildren<Props>) {
-    const { children, ...rest } = props;
     const ref = useRef<HTMLButtonElement>(null);
-    const [disabled, setDisabled] = useState(false);
-    const send = useCartSend();
+    const [disabled] = useState(false);
     const onClick = useCallback(() => {
-        console.log("todo - inline add");
+        console.log("todo - inline add ?");
     }, [props.sku]);
     return (
         <button

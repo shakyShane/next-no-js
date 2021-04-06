@@ -8,12 +8,14 @@ query global($id: Int = 2) {
             name
             url_path
             url_key
+            url_suffix
             image
             id
             children {
                 name
                 url_path
                 url_key
+                url_suffix
                 image
                 id
             }

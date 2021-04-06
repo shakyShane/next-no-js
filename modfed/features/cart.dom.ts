@@ -1,5 +1,5 @@
-import { useSend, useService } from "~/modfed/features/common";
-import { CartValue, MACHINE_ID, PublicContext, Send } from "~/modfed/features/cart.machine";
+import { cartMachine } from "~/modfed/features/cart.machine";
+import { useGlobalService } from "~/modfed/global";
 
 export interface CartOpenEvent {
     type: "minicart:open";
@@ -20,10 +20,6 @@ export type CartEvents =
     | CartCloseEvent
     | CartUpdateEvent
 
-export function useCartSend(): Send {
-    return useSend(MACHINE_ID);
-}
-
-export function useCartService(): [{ value: CartValue; context: PublicContext }, Send] {
-    return useService(MACHINE_ID) as [{ value: CartValue; context: PublicContext }, Send];
+export function useCartService() {
+    return useGlobalService(cartMachine);
 }

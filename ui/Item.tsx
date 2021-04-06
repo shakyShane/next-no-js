@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { AddToCart } from "~/browser-components/AddToCart";
 import { Product } from "~/data/products";
-import { BrowserComponent } from "~/modfed/BrowserComponent";
 
 type Props = {
     item: Product;

@@ -1,8 +1,8 @@
 import React from "react";
-import { useAppSend } from "~/modfed/features/app.dom";
+import { useAppService } from "~/modfed/features/app.dom";
 
-export function MenuItem() {
-    const send = useAppSend();
+export function MenuButton() {
+    const [_, send] = useAppService();
     return (
         <button
             type="button"
@@ -20,4 +20,4 @@ export function MenuItem() {
     );
 }
 
-export default MenuItem;
+export default MenuButton;

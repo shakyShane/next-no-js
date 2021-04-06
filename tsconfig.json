@@ -18,6 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "strictNullChecks": true,
+    "noUnusedLocals": true,
     "jsx": "preserve",
     "downlevelIteration": true,
     "baseUrl": ".",
