@@ -1,9 +1,8 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { Qty } from "~/ui/Qty";
 import { ATC } from "~/ui/ATC";
-import { cartAddMachine } from "~/modfed/features/cart-add.machine";
-import { useMachineWithRef } from "~/modfed/global";
 import { useCartService } from "~/modfed/features/cart.dom";
+import { useCartAddService } from "~/modfed/features/cart-add.dom";
 
 type Props = {
     sku: string;
@@ -12,7 +11,8 @@ type Props = {
 export function ActionsInner(props: Props) {
     const [qty, setQty] = useState(1);
     const [{ context: cartContext }] = useCartService();
-    const [{ value }, sendAdd] = useMachineWithRef(cartAddMachine);
+    const [state, sendAdd] = useCartAddService();
+    const pending = ["waitingForCartId", "adding"].some(state.matches);
     const onSubmit = useCallback(
         (e) => {
             e.preventDefault();
@@ -37,7 +37,7 @@ export function ActionsInner(props: Props) {
 
                 {/*<Options />*/}
                 <ATC>
-                    {value === "adding" ? "wait..." : "Add to Cart"} ({cartContext.items_count})
+                    {pending ? "wait..." : "Add to Cart"} ({cartContext.items_count})
                 </ATC>
             </fieldset>
         </form>

@@ -1,5 +1,4 @@
 import { cartAddMachine } from "~/modfed/features/cart-add.machine";
-import { DoneInvokeEvent } from "xstate";
 import { useGlobalService } from "~/modfed/global";
 
 export interface CartAddSimple {
@@ -10,12 +9,15 @@ export interface CartAddSimple {
     };
 }
 
-type AddSimpleService = DoneInvokeEvent<{ qty: number }>;
+export interface CartId {
+    type: "@@incoming.cart.id";
+    payload: string;
+}
 
 // prettier-ignore
 export type CartAddEvents =
     | CartAddSimple
-    | AddSimpleService
+    | CartId;
 
 export function useCartAddService() {
     return useGlobalService(cartAddMachine);

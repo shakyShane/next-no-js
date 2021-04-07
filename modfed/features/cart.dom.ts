@@ -14,11 +14,16 @@ export interface CartCloseEvent {
     type: "minicart:close";
 }
 
+export interface CartIdRequest {
+    type: "@@request.id";
+}
+
 // prettier-ignore
 export type CartEvents =
     | CartOpenEvent
     | CartCloseEvent
     | CartUpdateEvent
+    | CartIdRequest
 
 export function useCartService() {
     return useGlobalService(cartMachine);
