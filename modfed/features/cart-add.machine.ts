@@ -90,7 +90,7 @@ export const cartAddMachine = createMachine<Context, CartAddEvents>(
         },
         services: {
             addSimple: (ctx) => {
-                console.log("ADDING", ctx);
+                console.log("ADDING", ctx.cartId);
                 return new Promise((res) => setTimeout(() => res({ qty: 1 }), 2000));
             },
         },

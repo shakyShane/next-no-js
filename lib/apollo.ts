@@ -15,7 +15,9 @@ import possibleTypes from "../queries/__global_generated__/possibleTypes.json";
 /**
  * Polyfill Global Variables in Server
  */
-if (!(process as any).browser) {
+let isBrowser = true;
+if (typeof window === "undefined") {
+    isBrowser = false;
     global.URL = require("url").URL;
 }
 
@@ -27,9 +29,7 @@ export type ResolverContext = {
 };
 
 function createIsomorphLink() {
-    const url = (process as any).browser
-        ? new URL("/graphql", location.href)
-        : new URL("/graphql", (process as any).env.BACKEND_URL);
+    const url = isBrowser ? new URL("/graphql", location.href) : new URL("/graphql", (process as any).env.BACKEND_URL);
 
     return new HttpLink({
         uri: url.href,
@@ -48,7 +48,7 @@ export function createApolloClient(context?: ResolverContext) {
     }
 
     return new ApolloClient({
-        ssrMode: !(process as any).browser,
+        ssrMode: !isBrowser,
         cache: new InMemoryCache({
             dataIdFromObject: (object: any) => {
                 switch (object.__typename) {
