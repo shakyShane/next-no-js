@@ -11,7 +11,7 @@ type Schema = {
 
 export type Context = {
     items_count: number;
-    origin: string | undefined;
+    originSender: string | undefined;
 };
 
 export type Send = Interpreter<Context, Schema, CartEvents>["send"];
@@ -23,12 +23,12 @@ export const cartMachine = Machine<Context, CartEvents>(
         initial: "closed",
         context: {
             items_count: 0,
-            origin: undefined,
+            originSender: undefined,
         },
         states: {
             closed: {
                 on: {
-                    "@@request.id": { target: "requested", actions: "saveOrigin" },
+                    "@@request.id": { target: "requested", actions: "saveOriginSender" },
                     "minicart:open": { target: "open" },
                     "minicart:items_count:updated": { target: "open", actions: "updateItemsCount" },
                 },
@@ -36,11 +36,12 @@ export const cartMachine = Machine<Context, CartEvents>(
             requested: {
                 after: {
                     100: {
+                        target: "closed",
                         actions: send(
                             { type: "@@incoming.cart.id", payload: "123456" },
                             {
                                 delay: 1000,
-                                to: (ctx) => ctx.origin || "cart-add",
+                                to: (ctx) => ctx.originSender || "cart-add",
                             }
                         ),
                     },
@@ -58,10 +59,10 @@ export const cartMachine = Machine<Context, CartEvents>(
     },
     {
         actions: {
-            saveOrigin: assign((ctx, evt, meta) => {
+            saveOriginSender: assign<Context, CartEvents>((ctx, evt, meta) => {
                 return {
                     ...ctx,
-                    origin: meta._event?.origin,
+                    originSender: meta._event?.origin,
                 };
             }),
             updateItemsCount: assign({
