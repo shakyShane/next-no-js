@@ -20,39 +20,55 @@ export const MACHINE_ID = "cart";
 export const cartMachine = Machine<Context, CartEvents>(
     {
         id: MACHINE_ID,
-        initial: "closed",
         context: {
             items_count: 0,
             originSender: undefined,
         },
+        type: "parallel",
         states: {
-            closed: {
+            minicart: {
+                initial: "closed",
                 on: {
-                    "@@request.id": { target: "requested", actions: "saveOriginSender" },
-                    "minicart:open": { target: "open" },
-                    "minicart:items_count:updated": { target: "open", actions: "updateItemsCount" },
+                    "minicart:items_count:updated": { target: "minicart.open", actions: "updateItemsCount" },
                 },
-            },
-            requested: {
-                after: {
-                    100: {
-                        target: "closed",
-                        actions: send(
-                            { type: "@@incoming.cart.id", payload: "123456" },
-                            {
-                                delay: 1000,
-                                to: (ctx) => ctx.originSender || "cart-add",
-                            }
-                        ),
+                states: {
+                    closed: {
+                        on: {
+                            "minicart:open": { target: "open" },
+                        },
+                    },
+                    open: {
+                        invoke: {
+                            src: "escapeKey",
+                        },
+                        on: {
+                            "minicart:close": { target: "closed" },
+                        },
                     },
                 },
             },
-            open: {
-                invoke: {
-                    src: "escapeKey",
-                },
-                on: {
-                    "minicart:close": { target: "closed" },
+            cartIdManagement: {
+                initial: "idle",
+                states: {
+                    idle: {
+                        on: {
+                            "@@request.id": { target: "requested", actions: "saveOriginSender" },
+                        },
+                    },
+                    requested: {
+                        after: {
+                            100: {
+                                target: "idle",
+                                actions: send(
+                                    { type: "@@incoming.cart.id", payload: "123456" },
+                                    {
+                                        delay: 1000,
+                                        to: (ctx) => ctx.originSender || "cart-add",
+                                    }
+                                ),
+                            },
+                        },
+                    },
                 },
             },
         },
