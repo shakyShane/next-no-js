@@ -34,7 +34,7 @@ function registerGlobalService(machine: StateMachine<any, any, any>, parent?: st
         },
     };
     const parentSrv = parent ? window[GLOBAL_PROXY][parent]?.srv : undefined;
-    const srv = interpret(machine.withContext({ ...machine.context, ref: lazyRef }), {
+    const srv = interpret(machine, {
         devTools: true,
         parent: parentSrv,
     })
@@ -46,37 +46,37 @@ function registerGlobalService(machine: StateMachine<any, any, any>, parent?: st
     window[GLOBAL_PROXY][machine.id].srv = srv;
 }
 
-export const lazyRef = (refName: string) => {
-    const match = window[GLOBAL_PROXY]?.[refName];
-    if (!match) {
-        throw new Error(`Service missing... ${refName}`);
-    }
-    return match.srv;
-};
+// export const lazyRef = (refName: string) => {
+//     const match = window[GLOBAL_PROXY]?.[refName];
+//     if (!match) {
+//         throw new Error(`Service missing... ${refName}`);
+//     }
+//     return match.srv;
+// };
 
-/**
- * A use-machine helper with access to lazyref
- * @param sm
- */
-export function useMachineWithRef<Context extends any, Events extends EventObject>(
-    sm: StateMachine<Context, any, Events>
-) {
-    const cart = getGlobal(cartMachine);
-    return useMachine(sm.withContext({ ...sm.context, ref: lazyRef }), { devTools: true, parent: cart });
-}
+// /**
+//  * A use-machine helper with access to lazyref
+//  * @param sm
+//  */
+// export function useMachineWithRef<Context extends any, Events extends EventObject>(
+//     sm: StateMachine<Context, any, Events>
+// ) {
+//     const cart = getGlobal(cartMachine);
+//     return useMachine(sm.withContext({ ...sm.context, ref: lazyRef }), { devTools: true, parent: cart });
+// }
 
-export function getGlobal<Context extends any, Events extends EventObject>(
-    sm: StateMachine<Context, any, Events>
-): Interpreter<Context, any, Events> | undefined {
-    if (typeof window === "undefined") {
-        return undefined;
-    }
-    const match = window[GLOBAL_PROXY]?.[sm.id];
-    if (!match) {
-        return undefined;
-    }
-    return match.srv;
-}
+// export function getGlobal<Context extends any, Events extends EventObject>(
+//     sm: StateMachine<Context, any, Events>
+// ): Interpreter<Context, any, Events> | undefined {
+//     if (typeof window === "undefined") {
+//         return undefined;
+//     }
+//     const match = window[GLOBAL_PROXY]?.[sm.id];
+//     if (!match) {
+//         return undefined;
+//     }
+//     return match.srv;
+// }
 
 export function useGlobalService<Context extends any, Events extends EventObject>(
     sm: StateMachine<Context, any, Events>

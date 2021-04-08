@@ -1,4 +1,4 @@
-import { assign, DoneInvokeEvent, Interpreter, Machine, sendParent, StateSchema } from "xstate";
+import { assign, createMachine, DoneInvokeEvent, Interpreter, sendParent, StateSchema } from "xstate";
 import { CartAddEvents, CartAddSimple } from "~/modfed/features/cart-add.dom";
 import { pure } from "xstate/lib/actions";
 
@@ -13,7 +13,6 @@ type Schema = {
 };
 
 export type Context = {
-    ref: (address: string) => Interpreter<any, any>;
     next?: CartAddSimple["payload"];
     cartId?: string;
 };
@@ -22,14 +21,11 @@ export type CartAddValue = keyof Schema["states"];
 export type Send = Interpreter<Context, Schema, CartAddEvents>["send"];
 export const MACHINE_ID = "cart-add";
 
-export const cartAddMachine = Machine<Context, CartAddEvents>(
+export const cartAddMachine = createMachine<Context, CartAddEvents>(
     {
         id: MACHINE_ID,
         initial: "idle",
         context: {
-            // @ts-ignore
-            ref: null,
-
             // store the workload
             next: undefined,
         },
@@ -83,7 +79,7 @@ export const cartAddMachine = Machine<Context, CartAddEvents>(
                     }
                 },
             }),
-            notifyRefs: pure((ctx, evt: DoneInvokeEvent<{ qty: number }> | CartAddEvents) => {
+            notifyRefs: pure<Context, CartAddEvents>((ctx, evt: DoneInvokeEvent<{ qty: number }> | CartAddEvents) => {
                 if (evt.type === "done.invoke.addSimple") {
                     return sendParent({
                         type: "minicart:items_count:updated",
